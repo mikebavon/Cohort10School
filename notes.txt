@@ -1,0 +1,7 @@
+1. Generate Web application
+mvn archetype:generate -DgroupId=cohort10.sys.school -DartifactId=Cohort10School -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+
+2. packaged web application to .war (web archive) -- this is waht is deployable in application server (wildfly)
+mvn clean compile package
+
+3. We uploaded the web archive into wildfly through the admin console......
