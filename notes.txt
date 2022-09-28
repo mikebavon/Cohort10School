@@ -1,3 +1,16 @@
+================= JEE Topics ===================
+1. Introduction & Overview - SOLID PRINCIPLES
+2. Servlet
+3. JSP (EL JSTL E.T.C), JSF, FACELETS
+4. Resource Creation
+5. Context Dependency Injection
+6. Enterprise Java Beans (Ejb)
+7. JPA - Java Persistence APIs
+8. Webservices - Restful(JAX-RS), then SOAP(JAX-WS)
+9. JMS - RabbitMq
+10. Java Security
+
+============= overview =================
 1. Generate Web application
 mvn archetype:generate -DgroupId=cohort10.sys.school -DartifactId=Cohort10School -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
 
@@ -5,3 +18,96 @@ mvn archetype:generate -DgroupId=cohort10.sys.school -DartifactId=Cohort10School
 mvn clean compile package
 
 3. We uploaded the web archive into wildfly through the admin console......
+
+======= Overview of HTTP ========================
+-Any application main aim is to work on data(Message), the data message can exchanged two application within the same device
+or different devices.
+-For different applications to communicate, they must understand each other....setup rules/guidelines of communication.
+-Protocol - is format in which data must be in for data transmitted
+
+OSI MODEL
+application layer protocols (http [text in format]) -->
+presentation layer protocol (ssl [certificate - encrypts/decrypts) -->
+Session Layer(group related request/response) -->
+Transport Layer protocol(TCP - handshake-connection established by both the client and the server agrees to do communication) -->
+Network layer protocol (IP - address of location) -->
+Data link (packaging of data for transmission- frames) -->
+Physical layer -- Network cables, wifi - radio waves
+
+================= HTTP ======
+Hypertext Transfer Protocol - Tim Berners 1990
+
+1. has a text format called html (hypertext markup language)
+2. protocol to exchange data/message (http)
+3. client (requester, e.g browser through the url) and server (responder e.g web server)
+
+the client(browser...firefox) makes a request(html) to the server(web server...wildfly),
+the server(wildfly) receives the request, processes message and responds to the client (html).
+client (browser) receives message the displays the message for the user.
+
+How it works
+____________
+
+Scenario 1
+client(browser)--request-->Server(wildfly - servlet)
+client(browser)<--response--Server(wildfly - servlet)
+
+Scenario 2
+client(browser)--request-->Server(wildfly - servlet)
+Server(wildfly - servlet)--request-->Database //notice the server is now client to the database
+Server(wildfly - servlet)<--response--Database
+client(browser)<--responds--Server(wildfly - servlet)
+
+Scenario 3
+client(browser)--request-->Server(wildfly - servlet)
+Server(wildfly - servlet)--request-->Server2 //notice the server is now client to the database
+Server(wildfly - servlet)<--response--Server2
+client(browser)<--responds--Server(wildfly - servlet)
+
+
+1. Client - any application/tool/software that request for services from a server on behalf of user. (e.g Browser, whatsapp, outlook)
+    -Http client must understand html - we can manipulate html through css and javascript - (css and javascript will simply
+        translate to html) to achieve dynamic html...
+2. Server - a program that serves a client with a document (html), therefore http server,
+    serves http client with http document (html).
+
+BASICS CHARACTERISTICS ON HTTP
+1. Simple
+2. extensible
+3. stateless - requests are not linked, but not sessionless
+
+COMPONENTS OF HTTP
+    1. HTTP MESSAGE  --- text in some format
+    2. HTTP METHODS -- verbs/nouns on how the message is sent/received - post,get,put,delete,head,options
+
+   GET - get information from the server to the client, get data is sent together with the url, get data is in the url...
+   POST - the data is sent differently the with url, the data hidden in the url.
+   PUT - updates while post creates
+   DELETE - remove or delete
+   HEAD - provides metadata/information about request/response
+   OPTIONS - *********
+
+   HTTP STATUS
+    200 - ok
+    404 - not found - that resource not available
+    500 - server encountered unrecoverable error
+
+//************************** SERVLET ***********
+Servlet is a java program in JVM that translates http
+
+How do you make a class to become a Servlet?
+The class must implement directly or indirectly Servlet API (Application Programming Interface)
+Servlet APIs is a collection of interfaces(contract/rules) that a class must
+    follow(must implement) in order to server Http request
+
+Servlet API are in package call javax.servlet
+The interface that must be implement directly or indirectly is javax.servlet.Servlet
+
+
+/**** maven wildfly plugin ***
+mvn clean compile package wildfly:deploy
+mvn wildfly:undeploy
+mvn clean compile package wildfly:redeploy
+
+
+
