@@ -4,24 +4,9 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Hello implements Servlet {
-
-    ServletConfig config = null;
-
-    public void init(ServletConfig config) throws ServletException {
-        System.out.println("***********Hello world is initialized.. place into service*************8");
-        this.config = config;
-
-    }
-
-    public ServletConfig getServletConfig() {
-        return config;
-    }
+public class Hello extends GenericServlet {
 
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        System.out.println("The servlet Name in web.xml: " + getServletConfig().getServletName());
-        res.setContentType("text/html");
-
         String action = req.getParameter("action");
 
         PrintWriter wr = res.getWriter();
@@ -31,14 +16,6 @@ public class Hello implements Servlet {
             wr.print(this.login());
         else
             wr.print(this.home());
-    }
-
-    public String getServletInfo() {
-        return null;
-    }
-
-    public void destroy() {
-        System.out.println("***********Destroying hello world servlet*************");
     }
 
     public String home(){

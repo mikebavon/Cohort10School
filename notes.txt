@@ -128,6 +128,10 @@ lifecycle - creation to destruction
         Servlet container (wildfly) is shutting down or when the application is undeployed...
         It is called once in the lifecycle of a servlet
 
+Note:  implement a servlet by extending abstract javax.servlet.GenericServlet, another way
+
+Note: implement a servlet by extending abstract javax.servlet.HttpServlet, another way
+
 
 
 
