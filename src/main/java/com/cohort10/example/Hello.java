@@ -70,7 +70,7 @@ public class Hello extends HttpServlet {
                 actionError += "Invalid password<br/>";
 
             if (actionError.equals(""))
-                wr.print(this.loggedIn());
+                wr.print(this.loggedIn(username));
             else
                 wr.print(this.login(actionError));
 
@@ -131,11 +131,11 @@ public class Hello extends HttpServlet {
             + "</html>";
     }
 
-    public String loggedIn(){
+    public String loggedIn(String username){
         return "<!DOCTYPE html>"
             + "<html> "
                 + "<head> "
-                    + "<h1> Login</h1>"
+                    + "<h1> Logged In User: " + username + "</h1>"
                 + "</head>"
                 + "<body>"
                     + "<span style=\"color:green;font-size: 24px;font-weight:bold\">Logged In</span>"
