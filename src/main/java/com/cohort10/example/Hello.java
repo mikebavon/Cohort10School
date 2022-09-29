@@ -80,6 +80,7 @@ public class Hello extends HttpServlet {
     public String home(){
         return "<!DOCTYPE html>"
             + "<html> "
+                + "<script type=\"text/javascript\" src=\"./js/sample.js\"></script>"
                 + "<head> "
                     + "<h1> Welcome to School Management system</h1>"
                 + "</head>"
