@@ -10,6 +10,11 @@
 9. JMS - RabbitMq
 10. Java Security
 
+======================== maven wildfly plugin ==================
+mvn clean compile package wildfly:deploy
+mvn wildfly:undeploy
+mvn clean compile package wildfly:redeploy
+
 ============= overview =================
 1. Generate Web application
 mvn archetype:generate -DgroupId=cohort10.sys.school -DartifactId=Cohort10School -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
@@ -103,11 +108,27 @@ Servlet APIs is a collection of interfaces(contract/rules) that a class must
 Servlet API are in package call javax.servlet
 The interface that must be implement directly or indirectly is javax.servlet.Servlet
 
+Servlet Container (wildfly, apache tomcat, glassfish e.t.c) - web application server that servers servlet....
+Servlet Interface Methods:
 
-/**** maven wildfly plugin ***
-mvn clean compile package wildfly:deploy
-mvn wildfly:undeploy
-mvn clean compile package wildfly:redeploy
+lifecycle - creation to destruction
+
+1. void init(ServletConfig config) - called by servlet container, to indicate that the servlet is placed into service
+    Servlet container (wildfly) is starting up or when the application is deployed...
+    It is called once in the lifecycle of a servlet - called once
+
+2. ServletConfig getServletConfig() - Loads servlet configurations set in deployment descriptor (web.xml) - called once
+
+3. void service(ServletRequest req, ServletResponse res) throws ServletException, IOException - called when a request
+     is made, serves the request with content. It can be multiple time..., its whenever request and handles the request
+     Whenever a request by the client(browser), the servlet container (wildfly) will automatically initialize
+     ServletRequest req - with request information, ServletResponse res - response information
+
+4. void destroy() - called by servlet container, to indicate that the servlet is destroyed
+        Servlet container (wildfly) is shutting down or when the application is undeployed...
+        It is called once in the lifecycle of a servlet
+
+
 
 
 

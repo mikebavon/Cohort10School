@@ -5,12 +5,12 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>HelloCohort10</servlet-name>
+    <servlet-name>HelloServletName</servlet-name>
     <servlet-class>com.cohort10.example.Hello</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>HelloCohort10</servlet-name>
-    <url-pattern>/arsenal</url-pattern>
+    <servlet-name>HelloServletName</servlet-name>
+    <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
 </web-app>
