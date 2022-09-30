@@ -132,6 +132,33 @@ Note:  implement a servlet by extending abstract javax.servlet.GenericServlet, a
 
 Note: implement a servlet by extending abstract javax.servlet.HttpServlet, another way
 
+===============================Servlet Lifecycle================
+1. Servlet Loading - Servlet Container load all servlet, jvm - once
+2. Servlet Instance Creation - once
+3. init() method is invoked - once
+4. service() method is called on request - done severally
+5. destroy() method is invoked - once
+
+
+============= Deployment Descriptor (web.xml) ===============
+- is a java web application configuration file that tells to
+    the servlet container(wildfly) how the application should be deployed
+- web.xml it as xml.
+-what does web.xml provide
+    1. Servlet Declaration -- Declaring servlet
+        *specify the order of servlet initialization
+    2. Servlet Mapping -- maps servlet to url etc
+    3. Pass Parameters to a servlet
+
+================= HttpServletRequest Object ===============
+- This is an object that is initialized automatically by the container whenever a request is made
+    to a servlet
+
+
+
+
+
+
 
 
 

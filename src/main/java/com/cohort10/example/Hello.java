@@ -6,11 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.Map;
 
 public class Hello extends HttpServlet {
 
+    ServletConfig config = null;
+
+    public void init(ServletConfig config) throws ServletException{
+        this.config = config;
+    }
+
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String action = req.getParameter("action");
+
+        Enumeration<String> headers = req.getHeaderNames();
+        while (headers.hasMoreElements())
+            System.out.println("Header name: " + headers.nextElement());
 
         PrintWriter wr = res.getWriter();
         if (action != null && action.equalsIgnoreCase("register"))
@@ -18,10 +30,39 @@ public class Hello extends HttpServlet {
         else if (action != null && action.equalsIgnoreCase("login"))
             wr.print(this.login(null));
         else
-            wr.print(this.home());
+            wr.print(this.home(config.getServletContext().getInitParameter("applicationLabel")));
+
+
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        Enumeration<String> formFieldsName = req.getParameterNames();
+        while (formFieldsName.hasMoreElements()) {
+            String fieldName = formFieldsName.nextElement();
+            System.out.println("Field name: " + fieldName + " and the value is: " + req.getParameterValues(fieldName)[0]);
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        Map<String, String[]> paramsInMap = req.getParameterMap();
+        for (Map.Entry<String, String[]> map : paramsInMap.entrySet()) {
+            if (map.getValue() != null && map.getValue().length > 0)
+                System.out.println(map.getKey() + " ============= " + map.getValue()[0]);
+        }
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
         PrintWriter wr = res.getWriter();
 
         String action = req.getParameter("action");
@@ -52,7 +93,7 @@ public class Hello extends HttpServlet {
                 actionError += "Password & confirm password do not match<br/>";
 
             if (actionError.equals(""))
-                wr.print(this.home());
+                wr.print(this.home(config.getInitParameter("applicationLabel")));
             else
                 wr.print(this.register(actionError));
 
@@ -66,7 +107,7 @@ public class Hello extends HttpServlet {
             if (password == null || password.equalsIgnoreCase(""))
                 actionError += "Password is required<br/>";
 
-            if (password != null && !password.equals("12345"))
+            if (password != null && !password.equals(config.getInitParameter("password")))
                 actionError += "Invalid password<br/>";
 
             if (actionError.equals(""))
@@ -77,12 +118,12 @@ public class Hello extends HttpServlet {
         }
     }
 
-    public String home(){
+    public String home(String label){
         return "<!DOCTYPE html>"
             + "<html> "
                 + "<script type=\"text/javascript\" src=\"./js/sample.js\"></script>"
                 + "<head> "
-                    + "<h1> Welcome to School Management system</h1>"
+                    + "<h1> Welcome to " + label + "</h1>"
                 + "</head>"
                 + "<body>"
                     + " To Register <a href='./welcome?action=register'>Register</a><br/>"

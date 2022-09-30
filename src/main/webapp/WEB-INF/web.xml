@@ -4,13 +4,35 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>index1.html</welcome-file>
+    <welcome-file>index2.html</welcome-file>
+    <welcome-file>landingpage.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <context-param>
+      <param-name>applicationLabel</param-name>
+      <param-value>eSchool | School Management System</param-value>
+  </context-param>
+
   <servlet>
     <servlet-name>HelloServletName</servlet-name>
     <servlet-class>com.cohort10.example.Hello</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Home</servlet-name>
+    <servlet-class>com.cohort10.example.Home</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>HelloServletName</servlet-name>
     <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Home</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+
 </web-app>
