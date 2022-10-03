@@ -6,8 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Login extends HttpServlet {
 
@@ -43,6 +47,18 @@ public class Login extends HttpServlet {
             return;
         }
 
+        HttpSession session = req.getSession(true);
+        session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
+
+        List<String> studentNames  = new ArrayList<String>();
+        studentNames.add("Bonnie");
+        studentNames.add("Simon");
+        studentNames.add("James");
+        studentNames.add("Mercy");
+        studentNames.add("George");
+
+        session.setAttribute("students", studentNames);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
         dispatcher.forward(req, res);
 
@@ -52,10 +68,10 @@ public class Login extends HttpServlet {
         return "<!DOCTYPE html>"
             + "<html> "
                 + "<head> "
-                    + "<h1>" + config.getServletContext().getInitParameter("applicationLabel") + "</h1>"
-                    + "<h2> User Login</h2>"
                 + "</head>"
                 + "<body>"
+                    + "<h1>" + config.getServletContext().getInitParameter("applicationLabel") + "</h1>"
+                    + "<h2> User Login</h2>"
                     + "<form action=\"./login\" method=\"post\">"
                         + "<table> "
                             + "<tr> <td> Email/Username: </td> <td> <input type=\"text\" name=\"username\"> </td> </tr> "
