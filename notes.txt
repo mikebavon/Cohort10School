@@ -154,6 +154,9 @@ Note: implement a servlet by extending abstract javax.servlet.HttpServlet, anoth
 - This is an object that is initialized automatically by the container whenever a request is made
     to a servlet
 
+================= HttpServletResponse Object ===============
+- Assignment work with http servlet.......
+
 
 
 

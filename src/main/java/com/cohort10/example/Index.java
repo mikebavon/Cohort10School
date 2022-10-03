@@ -1,13 +1,12 @@
 package com.cohort10.example;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Home extends HttpServlet {
+public class Index extends HttpServlet {
 
     ServletConfig config = null;
 
@@ -15,16 +14,16 @@ public class Home extends HttpServlet {
         this.config = config;
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print("<!DOCTYPE html>"
             + "<html> "
+                + "<script type=\"text/javascript\" src=\"./js/sample.js\"></script>"
                 + "<head> "
                     + "<h1>" + config.getServletContext().getInitParameter("applicationLabel") + "</h1>"
-                    + "<h2> Welcome: " + req.getParameter("username") + "</h2>"
                 + "</head>"
                 + "<body>"
-                    + "<span style=\"color:green;font-size: 24px;font-weight:bold\">Logged In</span>"
-                    + "<br/>Logout <a href='./'>Login</a><br/>"
+                    + " To Register <a href='./register'>Register</a><br/>"
+                    + " To Login <a href='./login'>Login</a><br/>"
                 + "</body>"
             + "</html>");
     }
