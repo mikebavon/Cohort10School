@@ -1,26 +1,28 @@
-package com.cohort10.example;
+package com.cohort10.actions;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Register extends HttpServlet {
 
-    ServletConfig config = null;
-
-    public void init(ServletConfig config) throws ServletException {
-        this.config = config;
-    }
-
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        if (session != null && session.getAttribute("sessionId") != null)
+            res.sendRedirect("./home");
+
         res.getWriter().print(this.register(null));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        if (session != null && session.getAttribute("sessionId") != null)
+            res.sendRedirect("./home");
 
         PrintWriter wr = res.getWriter();
 
@@ -52,7 +54,7 @@ public class Register extends HttpServlet {
             + "<html> "
                 + "<head> "
                 + "</head>"
-                + "<h1>" + config.getServletContext().getInitParameter("applicationLabel") + "</h1>"
+                + "<h1>" + getServletContext().getAttribute("applicationLabel") + "</h1>"
                 + "<h2> User Registration </h2>"
                 + "<body>"
                     + "<form action=\"./register\" method=\"post\">"

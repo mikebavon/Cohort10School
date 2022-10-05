@@ -8,7 +8,7 @@
 7. JPA - Java Persistence APIs
 8. Webservices - Restful(JAX-RS), then SOAP(JAX-WS)
 9. JMS - RabbitMq
-10. Java Security 
+10. Java Security
 
 ======================== maven wildfly plugin ==================
 mvn clean compile package wildfly:deploy
@@ -157,6 +157,21 @@ Note: implement a servlet by extending abstract javax.servlet.HttpServlet, anoth
 ================= HttpServletResponse Object ===============
 - Assignment work with http servlet.......
 
+========== Events and Listeners =============
+Event - an occurrence of something
+In servlet life cycle involves events e.g initialization of servlets, binding attributes and parameters,
+    creation sessions etc.
+Listeners - waiting for event to happen so that they can process something else.
+Event and listeners work hand in hand/ work together
+
+Common listeners in servlet:
+    1. ServletContextListener - initialization and destruction events of the whole application.
+    2. ServletContextAttributeListener - listens to events of addition and removal of attribute in ServletContext
+    3. ServletRequestListener
+    4. ServletRequestAttributeListener
+    5. HttpServletSessionListener
+    6. HttpServletSessionBindingListener
+    7. HttpServletSessionAttributeListener
 
 
 

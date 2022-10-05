@@ -1,7 +1,6 @@
-package com.cohort10.example;
+package com.cohort10.actions;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Login extends HttpServlet {
-
-    ServletConfig config = null;
-
-    public void init(ServletConfig config) throws ServletException {
-        this.config = config;
-    }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print(this.login(null));
@@ -42,12 +35,13 @@ public class Login extends HttpServlet {
             return;
         }
 
-        if (!username.equals(config.getInitParameter("username")) && !password.equals(config.getInitParameter("password"))) {
+        if (!username.equals(getServletConfig().getInitParameter("username")) && !password.equals(getServletConfig().getInitParameter("password"))) {
             wr.print(this.login("Invalid username & password combination<br/>"));
             return;
         }
 
         HttpSession session = req.getSession(true);
+        session.setAttribute("sessionId", "SESSION_ID:1234555");
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
         List<String> studentNames  = new ArrayList<String>();
@@ -70,7 +64,7 @@ public class Login extends HttpServlet {
                 + "<head> "
                 + "</head>"
                 + "<body>"
-                    + "<h1>" + config.getServletContext().getInitParameter("applicationLabel") + "</h1>"
+                    + "<h1>" + getServletContext().getAttribute("applicationLabel") + "</h1>"
                     + "<h2> User Login</h2>"
                     + "<form action=\"./login\" method=\"post\">"
                         + "<table> "
