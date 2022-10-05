@@ -1,29 +1,19 @@
 package com.cohort10.actions;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Register extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session != null && session.getId() != null)
-            res.sendRedirect("./home");
-
         res.getWriter().print(this.register(null));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session != null && session.getId() != null)
-            res.sendRedirect("./home");
-
         PrintWriter wr = res.getWriter();
 
         String password = req.getParameter("password");

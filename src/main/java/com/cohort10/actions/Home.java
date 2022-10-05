@@ -13,10 +13,8 @@ public class Home extends HttpServlet {
     @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session == null || session.getId() == null)
-            res.sendRedirect("./");
-
         List<String> students = (List<String>) session.getAttribute("students");
+
 
         String studentList = "<ul>";
 

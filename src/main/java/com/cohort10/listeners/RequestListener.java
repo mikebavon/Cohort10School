@@ -17,7 +17,7 @@ public class RequestListener implements ServletRequestListener {
         Map<String,String[]> parameters = request.getParameterMap();
 
         System.out.println("Method: " + method);
-        System.out.println("Path info: " + request.getPathInfo());
+        System.out.println("Path info: " + request.getServletPath());
         for (Map.Entry<String, String[]> parameter : parameters.entrySet())
             System.out.println(parameter.getKey() + " : " + parameter.getValue()[0]);
 
