@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
         }
 
         HttpSession session = req.getSession(true);
-        session.setAttribute("sessionId", "SESSION_ID:1234555");
+        System.out.println("SESSION ID: " + session.getId());
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
         List<String> studentNames  = new ArrayList<String>();

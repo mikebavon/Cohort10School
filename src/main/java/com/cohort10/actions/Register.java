@@ -13,7 +13,7 @@ public class Register extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session != null && session.getAttribute("sessionId") != null)
+        if (session != null && session.getId() != null)
             res.sendRedirect("./home");
 
         res.getWriter().print(this.register(null));
@@ -21,7 +21,7 @@ public class Register extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session != null && session.getAttribute("sessionId") != null)
+        if (session != null && session.getId() != null)
             res.sendRedirect("./home");
 
         PrintWriter wr = res.getWriter();

@@ -13,7 +13,7 @@ public class Home extends HttpServlet {
     @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session == null || session.getAttribute("sessionId") == null)
+        if (session == null || session.getId() == null)
             res.sendRedirect("./");
 
         List<String> students = (List<String>) session.getAttribute("students");
@@ -41,7 +41,7 @@ public class Home extends HttpServlet {
     @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session == null || session.getAttribute("sessionId") == null)
+        if (session == null || session.getId() == null)
             res.sendRedirect("./");
 
         List<String> students = (List<String>) session.getAttribute("students");
