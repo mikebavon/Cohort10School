@@ -2,6 +2,8 @@ package com.cohort10.actions;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+@WebServlet(urlPatterns = "/login", initParams = {
+    @WebInitParam(name = "username", value = "johannes@graz.com"),
+    @WebInitParam(name = "password", value = "Cohort123*")
+})
 public class Login extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -44,12 +51,6 @@ public class Login extends HttpServlet {
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
         List<String> studentNames  = new ArrayList<String>();
-        studentNames.add("Bonnie");
-        studentNames.add("Simon");
-        studentNames.add("James");
-        studentNames.add("Mercy");
-        studentNames.add("George");
-
         session.setAttribute("students", studentNames);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");

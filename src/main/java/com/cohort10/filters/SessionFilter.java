@@ -1,12 +1,13 @@
 package com.cohort10.filters;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpFilter;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = "/*")
 public class SessionFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {
