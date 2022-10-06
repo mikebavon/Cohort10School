@@ -1,5 +1,7 @@
 package com.cohort10.actions;
 
+import com.cohort10.model.Student;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -19,7 +21,7 @@ import java.util.List;
     @WebInitParam(name = "username", value = "johannes@graz.com"),
     @WebInitParam(name = "password", value = "Cohort123*")
 })
-public class Login extends HttpServlet {
+public class LoginAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print(this.login(null));
@@ -48,10 +50,11 @@ public class Login extends HttpServlet {
         }
 
         HttpSession session = req.getSession(true);
+        session.setAttribute("username", username);
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
-        List<String> studentNames  = new ArrayList<String>();
-        session.setAttribute("students", studentNames);
+        List<Student> students  = new ArrayList<Student>();
+        session.setAttribute("students", students);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
         dispatcher.forward(req, res);

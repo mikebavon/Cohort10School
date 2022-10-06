@@ -1,5 +1,9 @@
 package com.cohort10.actions;
 
+import com.cohort10.model.Student;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/student")
-public class Student  extends HttpServlet {
+public class StudentAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print(this.addStudent(null));
@@ -24,20 +28,32 @@ public class Student  extends HttpServlet {
 
         PrintWriter wr = res.getWriter();
 
-        String name = req.getParameter("name");
+        Student student = new Student();
 
-        if (name == null || name.equalsIgnoreCase("")) {
+        try {
+            BeanUtils.populate(student, req.getParameterMap());
+
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        if (StringUtils.isBlank(student.getName())) {
             wr.print(this.addStudent("Name is required<br/>"));
             return;
         }
 
+        if (StringUtils.isBlank(student.getRegNo())) {
+            wr.print(this.addStudent("Reg No is required<br/>"));
+            return;
+        }
+
         HttpSession session = req.getSession();
-        List<String> students = (List<String>) session.getAttribute("students");
+        List<Student> students = (List<Student>) session.getAttribute("students");
 
         if (students == null)
-            students = new ArrayList<String>();
+            students = new ArrayList<Student>();
 
-        students.add(name);
+        students.add(student);
         session.setAttribute("students", students);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
@@ -56,6 +72,7 @@ public class Student  extends HttpServlet {
                     + "<form action=\"./student\" method=\"post\">"
                         + "<table> "
                             + "<tr> <td> Student Name: </td> <td> <input type=\"text\" name=\"name\"> </td> </tr> "
+                            + "<tr> <td> Student Reg No: </td> <td> <input type=\"text\" name=\"regNo\"> </td> </tr> "
                             + "<tr> <td> <input type=\"submit\" value=\"Submit\"></tr> "
                         + "</table>"
                     + "</form>"

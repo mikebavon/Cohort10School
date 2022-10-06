@@ -18,6 +18,13 @@ public class SessionFilter implements Filter {
         System.out.println("Printing from session Remote address: " + request.getRemoteAddr());
 
         HttpServletRequest httpReq = (HttpServletRequest)  request;
+        System.out.println(httpReq.getRequestURI());
+        if(httpReq.getRequestURI().matches(".*[css|jpg|png|gif|js].*")){
+            System.out.println("Skipping styles");
+            chain.doFilter(request, response);
+            return;
+        }
+
         HttpServletResponse httpRes = (HttpServletResponse)  response;
         HttpSession session = httpReq.getSession(); //returns existing session or creates if not existing
 
@@ -32,7 +39,8 @@ public class SessionFilter implements Filter {
         //if user is accessing /home - (page accessed only by logged-in users),
         //with a new session creating in this filter (which mean the session was initially
         // null and was crated in this filter at line 21, the user will be redirected to login page
-        if (reqPath.equalsIgnoreCase("/home") && session.isNew() /*checks if
+        if ((reqPath.equalsIgnoreCase("/home")
+            || reqPath.equalsIgnoreCase("/student")) && session.isNew() /*checks if
         // session was created in the filte*/) {
             httpRes.sendRedirect("./login");
             return;
