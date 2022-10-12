@@ -179,6 +179,26 @@ Common listeners in servlet:
     - It add, modify or delete from the request reaches the servlet
 
 
+===== JDBC API ====
+    -Collection of interfaces(API) that help java interact with databases
+    -Each vendor(mysql,microsoft sql,oracle, postgres) will implement the interface to java to connect
+        to that particular vendor database
+    -Two parts of jdbc - jdbc API & jdbc Driver
+
+==process of acquiring connecting to database
+    1. Register Driver // deprecated..will done automatically
+    2. Establish connection
+    3. Create statement
+    4. Execute queries (adding, updating, or fetching -- ResultSet....)
+    5. Close connection
+
+========= Two ways to establish connection ==========
+    1. DriverManager
+    2. Datasource -- connection pooling
+
+====== Assignment DriverManager vs Datasource ....check explanation and advantage of datasource over Driver Manager
+
+
 
 
 

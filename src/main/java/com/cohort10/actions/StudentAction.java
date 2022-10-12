@@ -1,5 +1,6 @@
 package com.cohort10.actions;
 
+import com.cohort10.common.Gender;
 import com.cohort10.model.Student;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import java.util.List;
 public class StudentAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.getWriter().print(this.addStudent(null));
+        res.getWriter().print(this.addStudentView(null));
     }
 
     @SuppressWarnings("unchecked")
@@ -38,30 +40,23 @@ public class StudentAction extends HttpServlet {
         }
 
         if (StringUtils.isBlank(student.getName())) {
-            wr.print(this.addStudent("Name is required<br/>"));
+            wr.print(this.addStudentView("Name is required<br/>"));
             return;
         }
 
         if (StringUtils.isBlank(student.getRegNo())) {
-            wr.print(this.addStudent("Reg No is required<br/>"));
+            wr.print(this.addStudentView("Reg No is required<br/>"));
             return;
         }
 
-        HttpSession session = req.getSession();
-        List<Student> students = (List<Student>) session.getAttribute("students");
-
-        if (students == null)
-            students = new ArrayList<Student>();
-
-        students.add(student);
-        session.setAttribute("students", students);
+        this.insert(student);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
         dispatcher.forward(req, res);
 
     }
 
-    public String addStudent(String actionError){
+    public String addStudentView(String actionError){
         return "<!DOCTYPE html>"
             + "<html> "
                 + "<head> "
@@ -81,4 +76,39 @@ public class StudentAction extends HttpServlet {
                 + "</body>"
             + "</html>";
     }
+
+    public void insert(Student student) {
+        if (student == null || StringUtils.isBlank(student.getName()) || StringUtils.isBlank(student.getRegNo()))
+            return;
+
+        if (student.getGender() == null)
+            student.setGender(Gender.NA);
+
+        if (student.getDateOfBirth() == null)
+            student.setDateOfBirth(new java.util.Date());
+
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "Okello3477#*");
+
+            Statement sqlStmt = connection.createStatement();
+            sqlStmt.executeUpdate("insert into students(name,reg_no,date_of_birth,gender) " +
+                "values('" + student.getName() + "','" + student.getRegNo() + "'," +
+                    "'" + new Date(student.getDateOfBirth().getTime()) + "','" + student.getGender().name() + "')");
+
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+
+        } finally {
+            try {
+                connection.close();
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package com.cohort10.actions;
 
+import com.cohort10.model.Student;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,7 @@ import java.io.PrintWriter;
 public class RegisterAction extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.getWriter().print(this.register(null));
+        res.getWriter().print(this.registerView(null));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -38,10 +40,11 @@ public class RegisterAction extends HttpServlet {
         if (actionError.equals(""))
             res.sendRedirect("./login");
         else
-            wr.print(this.register(actionError));
+            wr.print(this.registerView(actionError));
     }
 
-    public String register(String actionError){
+    public String registerView(String actionError){
+
         return "<!DOCTYPE html>"
             + "<html> "
                 + "<head> "
@@ -62,4 +65,5 @@ public class RegisterAction extends HttpServlet {
                 + "</body>"
             + "</html>";
     }
+
 }

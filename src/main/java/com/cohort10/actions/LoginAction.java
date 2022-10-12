@@ -1,7 +1,5 @@
 package com.cohort10.actions;
 
-import com.cohort10.model.Student;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -12,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 @WebServlet(urlPatterns = "/login", initParams = {
@@ -52,9 +48,6 @@ public class LoginAction extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("username", username);
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
-
-        List<Student> students  = new ArrayList<Student>();
-        session.setAttribute("students", students);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
         dispatcher.forward(req, res);

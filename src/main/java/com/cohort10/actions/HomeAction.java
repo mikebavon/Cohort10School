@@ -1,5 +1,6 @@
 package com.cohort10.actions;
 
+import com.cohort10.common.Gender;
 import com.cohort10.model.Student;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,6 @@ public class HomeAction extends HttpServlet {
 
     @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-
         res.getWriter().print("<!DOCTYPE html>"
             + "<html> "
                 + "<head>"
@@ -27,7 +27,7 @@ public class HomeAction extends HttpServlet {
                 + "<body>"
                     + "<h1>" + getServletContext().getAttribute("applicationLabel") + "</h1>"
                     + "<span style=\"color:green;font-size: 24px;font-weight:bold\">Logged In</span>"
-                    + "<br/>" + studentGrid((List<Student>) session.getAttribute("students"))
+                    + "<br/>" + studentGrid(new Student())
                     + "<br/>Logout <a href='./logout'>Logout</a><br/>"
                 + "</body>"
             + "</html>");
@@ -36,9 +36,6 @@ public class HomeAction extends HttpServlet {
     @SuppressWarnings("unchecked")
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session == null || session.getId() == null)
-            res.sendRedirect("./");
-
         res.getWriter().print("<!DOCTYPE html>"
             + "<html> "
                 + "<head> "
@@ -49,21 +46,49 @@ public class HomeAction extends HttpServlet {
                     + "<h2> Welcome: " + session.getAttribute("username") + "  Logged In At: " + session.getAttribute("loggedInTime") + "</h2>"
                     + "<span style=\"color:green;font-size: 24px;font-weight:bold\">Logged In</span>"
                     + "<br/>Logout <a href='./student'>Add Student</a><br/>"
-                    + "<br/>" + studentGrid((List<Student>) session.getAttribute("students"))
+                    + "<br/>" + studentGrid(new Student())
                     + "<br/>Logout <a href='./logout'>Logout</a><br/>"
                 + "</body>"
             + "</html>");
     }
 
-    public String studentGrid(List<Student> students) {
+    public String studentGrid(Student studentFilter) {
+        List<Student> students = new ArrayList<Student>();
 
-        if (students == null)
-            students = new ArrayList<Student>();
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "Okello3477#*");
+
+            Statement sqlStmt = connection.createStatement();
+            ResultSet result = sqlStmt.executeQuery("select * from students");
+            while (result.next()) {
+                Student student = new Student();
+                student.setName(result.getString("name"));
+                student.setRegNo(result.getString("reg_no"));
+                student.setGender(Gender.valueOf(result.getString("gender")));
+                student.setDateOfBirth(result.getDate("date_of_birth"));
+
+                students.add(student);
+            }
+
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+
+        } finally {
+            try {
+                connection.close();
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }
 
         String studentGrid = "<table >" +
             "<tr>" +
                 "<th>Student Name</th>" +
                 "<th>Student Reg Number</th>" +
+                "<th>Gender</th>" +
+                "<th>Date Of Birth</th>" +
                 "<th></th>" +
             "</tr>";
 
@@ -71,6 +96,8 @@ public class HomeAction extends HttpServlet {
             studentGrid += "<tr>"
                + "<td>" + student.getName() + "</td>"
                + "<td>" + student.getRegNo() + "</td>"
+               + "<td>" + student.getGender().getName() + "</td>"
+               + "<td>" + student.getDateOfBirth() + "</td>"
                + "<td><a href=\"./edit\">Edit</a>  | <a href=\"./delete\">Delete</a></td>"
               + "</tr>";
 
