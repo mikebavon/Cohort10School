@@ -3,6 +3,8 @@ package com.cohort10.actions;
 import com.cohort10.common.Gender;
 import com.cohort10.model.Student;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,15 @@ import java.util.List;
 
 @WebServlet("/home")
 public class HomeAction extends HttpServlet {
+
+    ServletContext servletCtx = null;
+
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+
+        servletCtx = config.getServletContext();
+
+    }
 
     @SuppressWarnings("unchecked")
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -55,12 +66,10 @@ public class HomeAction extends HttpServlet {
     public String studentGrid(Student studentFilter) {
         List<Student> students = new ArrayList<Student>();
 
-        Connection connection = null;
-
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "Okello3477#*");
-
+            Connection connection = (Connection) servletCtx.getAttribute("dbConnection");
             Statement sqlStmt = connection.createStatement();
+
             ResultSet result = sqlStmt.executeQuery("select * from students");
             while (result.next()) {
                 Student student = new Student();
@@ -75,12 +84,6 @@ public class HomeAction extends HttpServlet {
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
 
-        } finally {
-            try {
-                connection.close();
-            }catch (Exception ex){
-                System.out.println(ex.getMessage());
-            }
         }
 
         String studentGrid = "<table >" +

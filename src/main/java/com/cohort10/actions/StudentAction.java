@@ -6,6 +6,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,15 @@ import java.util.List;
 
 @WebServlet("/student")
 public class StudentAction extends HttpServlet {
+
+    ServletContext servletCtx = null;
+
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+
+        servletCtx = config.getServletContext();
+
+    }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print(this.addStudentView(null));
@@ -87,28 +98,19 @@ public class StudentAction extends HttpServlet {
         if (student.getDateOfBirth() == null)
             student.setDateOfBirth(new java.util.Date());
 
-        Connection connection = null;
-
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "Okello3477#*");
+            Connection connection = (Connection) servletCtx.getAttribute("dbConnection");
 
             Statement sqlStmt = connection.createStatement();
             sqlStmt.executeUpdate("insert into students(name,reg_no,date_of_birth,gender) " +
                 "values('" + student.getName() + "','" + student.getRegNo() + "'," +
                     "'" + new Date(student.getDateOfBirth().getTime()) + "','" + student.getGender().name() + "')");
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
 
-        } finally {
-            try {
-                connection.close();
-            }catch (Exception ex){
-                System.out.println(ex.getMessage());
-            }
         }
 
     }
-
 
 }
