@@ -1,6 +1,12 @@
 package com.cohort10.actions;
 
+import com.cohort10.common.Gender;
+import com.cohort10.model.Student;
+import com.cohort10.model.User;
+
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @WebServlet(urlPatterns = "/login", initParams = {
@@ -18,6 +29,15 @@ import java.util.Date;
     @WebInitParam(name = "password", value = "Cohort123*")
 })
 public class LoginAction extends HttpServlet {
+
+    ServletContext servletCtx = null;
+
+    public void init(ServletConfig config) throws ServletException{
+        super.init(config);
+
+        servletCtx = config.getServletContext();
+
+    }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.getWriter().print(this.login(null));
@@ -40,13 +60,15 @@ public class LoginAction extends HttpServlet {
             return;
         }
 
-        if (!username.equals(getServletConfig().getInitParameter("username")) && !password.equals(getServletConfig().getInitParameter("password"))) {
+        User user = this.login(username, password);
+        if (user == null || user.getId() == null) {
             wr.print(this.login("Invalid username & password combination<br/>"));
             return;
         }
 
         HttpSession session = req.getSession(true);
-        session.setAttribute("username", username);
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("profile", user.getProfile());
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
@@ -73,5 +95,29 @@ public class LoginAction extends HttpServlet {
                     + "Register? <a href='./register'>Register</a><br/>"
                 + "</body>"
             + "</html>";
+    }
+
+    public User login(String username, String password) {
+
+        User user = null;
+
+        try {
+            Connection connection = (Connection) servletCtx.getAttribute("dbConnection");
+            Statement sqlStmt = connection.createStatement();
+
+            ResultSet result = sqlStmt.executeQuery("select * from users where username='" + username + "' and " +
+                    "password='" + password + "'");
+            while (result.next()) {
+                user = new User();
+                user.setId((long) result.getInt("id"));
+                user.setUsername(result.getString("username"));
+            }
+
+        }catch (Exception ex) {
+            System.out.println("Log In Error: " + ex.getMessage());
+        }
+
+        return user;
+
     }
 }
