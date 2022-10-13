@@ -4,10 +4,12 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -20,13 +22,11 @@ public class AppContextListener implements ServletContextListener {
         ctx.setAttribute("applicationLabel", "eSchool | School Management System | Made In Kenya");
 
         try {
+            InitialContext ictx = new InitialContext();
+            DataSource dataSource = (DataSource) ictx.lookup("java:jboss/datasources/School");
             System.out.print("Establishing connections....");
-            ComboPooledDataSource dataSource = new ComboPooledDataSource();
-            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/school");
-            dataSource.setUser("root");
-            dataSource.setPassword("Okello3477#*");
-
             Connection connection = dataSource.getConnection();
+
             ctx.setAttribute("dbConnection", connection);
             System.out.print("Connection Established....");
         } catch (Exception ex) {
