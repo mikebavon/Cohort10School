@@ -1,7 +1,5 @@
 package com.cohort10.actions;
 
-import com.cohort10.common.Gender;
-import com.cohort10.model.Student;
 import com.cohort10.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -19,9 +17,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 @WebServlet(urlPatterns = "/login", initParams = {

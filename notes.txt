@@ -2,9 +2,9 @@
 1. Introduction & Overview - SOLID PRINCIPLES
 2. Servlet
 3. JSP (EL JSTL E.T.C), JSF, FACELETS
-4. Resource Creation
-5. Context Dependency Injection
-6. Enterprise Java Beans (Ejb)
+4. Resource Creation & JNDI
+5. Context Dependency Injection ///NO use of new Key word
+6. Enterprise Java Beans (Ejb) ///NO use of new Key word
 7. JPA - Java Persistence APIs
 8. Webservices - Restful(JAX-RS), then SOAP(JAX-WS)
 9. JMS - RabbitMq
@@ -197,6 +197,9 @@ Common listeners in servlet:
     2. Datasource -- connection pooling
 
 ====== Assignment DriverManager vs Datasource ....check explanation and advantage of datasource over Driver Manager
+    -Datasource Allows connection pooling...distributed system...you can reuse connections
+    -Loose coupling - allowing you to switch between database eaisly
+    -Layer of Abstraction, you application of abstracted from connection management, connection pooling etc.
 
 
 

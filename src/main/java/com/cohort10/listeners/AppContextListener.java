@@ -1,5 +1,7 @@
 package com.cohort10.listeners;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,8 +19,12 @@ public class AppContextListener implements ServletContextListener {
 
         try {
             System.out.print("Establishing connections....");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/school",
-                    "root", "Okello3477#*");
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUrl("jdbc:mysql://localhost:3306/school");
+            dataSource.setUser("root");
+            dataSource.setPassword("Okello3477#*");
+
+            Connection connection = dataSource.getConnection();
             ctx.setAttribute("dbConnection", connection);
             System.out.print("Connection Established....");
         } catch (Exception ex) {
