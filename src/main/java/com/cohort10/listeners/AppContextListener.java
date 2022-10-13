@@ -1,6 +1,7 @@
 package com.cohort10.listeners;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -19,10 +20,13 @@ public class AppContextListener implements ServletContextListener {
 
         try {
             System.out.print("Establishing connections....");
-            MysqlDataSource dataSource = new MysqlDataSource();
+            BasicDataSource dataSource = new BasicDataSource();
             dataSource.setUrl("jdbc:mysql://localhost:3306/school");
-            dataSource.setUser("root");
+            dataSource.setUsername("root");
             dataSource.setPassword("Okello3477#*");
+            dataSource.setInitialSize(3);
+            dataSource.setMaxIdle(3);
+            dataSource.setMaxTotal(5);
 
             Connection connection = dataSource.getConnection();
             ctx.setAttribute("dbConnection", connection);
