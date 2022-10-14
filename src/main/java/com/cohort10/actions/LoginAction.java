@@ -20,10 +20,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 
-@WebServlet(urlPatterns = "/login", initParams = {
-    @WebInitParam(name = "username", value = "johannes@graz.com"),
-    @WebInitParam(name = "password", value = "Cohort123*")
-})
+@WebServlet(urlPatterns = "/login")
 public class LoginAction extends HttpServlet {
 
     ServletContext servletCtx = null;
@@ -35,10 +32,6 @@ public class LoginAction extends HttpServlet {
 
     }
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.getWriter().print(this.login(null));
-    }
-
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         PrintWriter wr = res.getWriter();
@@ -47,18 +40,21 @@ public class LoginAction extends HttpServlet {
         String username = req.getParameter("username");
 
         if (username == null || username.equalsIgnoreCase("")) {
-            wr.print(this.login("Username is required<br/>"));
+            servletCtx.setAttribute("loginError" , "Username is required<br/>");
+            res.sendRedirect("./login.jsp");
             return;
         }
 
         if (password == null || password.equalsIgnoreCase("")) {
-            wr.print(this.login("Password is required<br/>"));
+            servletCtx.setAttribute("loginError" , "Password is required<br/>");
+            res.sendRedirect("./login.jsp");
             return;
         }
 
         User user = this.login(username, password);
         if (user == null || user.getId() == null) {
-            wr.print(this.login("Invalid username & password combination<br/>"));
+            servletCtx.setAttribute("loginError" , "Password is username & password combination<br/>");
+            res.sendRedirect("./login.jsp");
             return;
         }
 
@@ -70,27 +66,6 @@ public class LoginAction extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
         dispatcher.forward(req, res);
 
-    }
-
-    public String login(String actionError){
-        return "<!DOCTYPE html>"
-            + "<html> "
-                + "<head> "
-                + "</head>"
-                + "<body>"
-                    + "<h1>" + getServletContext().getAttribute("applicationLabel") + "</h1>"
-                    + "<h2> User Login</h2>"
-                    + "<form action=\"./login\" method=\"post\">"
-                        + "<table> "
-                            + "<tr> <td> Email/Username: </td> <td> <input type=\"text\" name=\"username\"> </td> </tr> "
-                            + "<tr> <td> Password: </td> <td> <input type=\"Password\" name=\"password\"> </td> </tr> "
-                            + "<tr> <td> <input type=\"submit\" value=\"Submit\"></tr> "
-                        + "</table>"
-                    + "</form>"
-                    + "<span style=\"color:red\">" + (actionError != null? actionError : "") + "</span><br/>"
-                    + "Register? <a href='./register'>Register</a><br/>"
-                + "</body>"
-            + "</html>";
     }
 
     public User login(String username, String password) {

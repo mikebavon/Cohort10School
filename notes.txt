@@ -201,6 +201,78 @@ Common listeners in servlet:
     -Loose coupling - allowing you to switch between database eaisly
     -Layer of Abstraction, you application of abstracted from connection management, connection pooling etc.
 
+======= JSP =======
+    -Java Servers Pages -- html with java code, a file that allows use of java inside HTML
+        -SERVELET -- HTML INSIDE JAVA, BUT IN JSP --- JAVA INSIDE HTML
+   -JSP eventually become.
+   -Jsp file has .jsp extension, you can rename .html file to .jsp and they become jsp
+
+=== JSP life cycle ===
+    1. Translated JSP to Servlet by servlet container
+    2. Servlet is compiled to bytecode the container
+    3. Servlet is loaded into container(jvm)
+    4. Servlet instance is created
+    5. the init method is ... _jspInit()
+    6. the service method is called for request made... _jspService()
+    7. on undeploy or shutting down the web container, the destroy method is called _jspDestroy();
+
+    index.jsp ---> Index_jsp.java --> Index_jsp.class --> Index_jsp.jspInit() ---> Index_jsp.jspService();
+
+
+    Jsp translation to class.... e.g
+
+    public class Index_jsp implements HttpJspPage{
+
+        int age=30; //put here by declaration tag
+
+        public void _jspInit(ServletConfig config){
+
+        }
+
+        public void _jspService(HttpServletRequest request, HttpServletResponse response) throw Exception{
+            //scriplet will automatically be inserted here....
+            PrintWriter out = resp.getPrintWriter();
+        }
+
+        public void _jspDestroy(){
+
+        }
+
+        String showNotes() {
+
+        }
+
+    }
+
+ ============= JSP SCRIPTING TAGS OR ELEMENTS ===========
+scripting in jsp start with <% %>
+    1. comments <%-- comment --%>
+    2. Directive tag gives the direction on doing something which include.
+        a. import
+        b. include
+        c. use taglib
+
+        <%@ import ... %>
+
+    3. Declaration - declare variable, methods etc
+        <%! int age=30 %>
+    4. Scriptlet <% code %>
+    5. Expression <%= %>
+
+===== implicit objects =====
+Are objects that instances created automatically and accessible inside jsp pages, at translation stage...
+
+out - JspWriter ---same printerWriter object for HttpServletResponse..
+request - HttpServletRequest
+response - HttpServletResponse
+application - ServletContext
+config - ServletConfig
+session - HttpSession
+
+
+
+
+
 
 
 
