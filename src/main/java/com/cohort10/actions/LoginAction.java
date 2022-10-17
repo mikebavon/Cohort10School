@@ -2,11 +2,9 @@ package com.cohort10.actions;
 
 import com.cohort10.model.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -63,8 +61,7 @@ public class LoginAction extends HttpServlet {
         session.setAttribute("profile", user.getProfile());
         session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
-        dispatcher.forward(req, res);
+        res.sendRedirect("./home.jsp");
 
     }
 

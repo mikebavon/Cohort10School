@@ -269,6 +269,11 @@ application - ServletContext
 config - ServletConfig
 session - HttpSession
 
+===== directives =====
+<%@ page ..... %> ///specify the dependencies of the page..import, disable, extend class
+<%@ include .... %>
+<%@ taglib .... %> // allows specify the tag library to use in tags..JSTL
+
 
 
 
