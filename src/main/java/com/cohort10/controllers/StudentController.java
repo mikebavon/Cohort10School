@@ -55,6 +55,7 @@ public class StudentController implements Serializable {
             ResultSet result = sqlStmt.executeQuery("select * from students");
             while (result.next()) {
                 com.cohort10.model.Student student = new com.cohort10.model.Student();
+                student.setId(Long.valueOf(result.getInt("id")));
                 student.setName(result.getString("name"));
                 student.setRegNo(result.getString("reg_no"));
                 student.setGender(Gender.valueOf(result.getString("gender")));

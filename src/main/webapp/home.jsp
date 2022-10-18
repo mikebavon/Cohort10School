@@ -32,7 +32,7 @@
         <td><%= student.getRegNo() %></td>
         <td><%= student.getGender().getName() %></td>
         <td><%= student.getDateOfBirth() %></td>
-        <td><a href="./edit">Edit</a>  | <a href="./delete">Delete</a></td>
+        <td><a href="./edit?id=<%= student.getId() %>">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
 
 <% } %>
