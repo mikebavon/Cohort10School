@@ -275,6 +275,22 @@ session - HttpSession
 <%@ taglib .... %> // allows specify the tag library to use in tags..JSTL
 
 
+===== JSP ACTIONS ======
+Standard tags that can be used in jsp replace scriplet
+html -- tags then ..jsp tags ...jsp standards tags=jsp actions tags
+
+JSP Standard tags begins with jsp
+
+1. jsp:include - include a page..you pass parameter using jsp:param -- will bind to request implicit object
+    and you can access the object through request.getParameter(parameterName);
+2. jsp:forward - fowards a page..you pass parameter using jsp:param -- will bind to request implicit object
+      and you can access the object through request.getParameter(parameterName);
+3. jsp:useBean
+    jsp:setProperty
+    jsp:getProperty
+4. jsp:param
+
+
 
 
 

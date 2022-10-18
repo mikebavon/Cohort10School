@@ -1,20 +1,19 @@
-<%@ page import="com.cohort10.controllers.*" %>
 <%@ page import="com.cohort10.model.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
-<%! StudentController studentController = new StudentController(); %>
-<%! SubjectController subjectController = new SubjectController(); %>
+<jsp:useBean id="studentController" class="com.cohort10.controllers.StudentController" />
+<jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
 
-<%@ include file="header.jsp" %>
+<jsp:include page="header.jsp" />
 
 <h2> Welcome: <%= session.getAttribute("username") %> Logged In At: <%= session.getAttribute("loggedInTime") %></h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
 <br/>Add Student <a href='./student_add.jsp'>Add Student</a><br/>
 <br/>
 <h1> Students </h1>
-<table>
+<table class='gridTable'>
 <tr>
     <th>Student Name</th>
     <th>Student Reg Number</th>
@@ -43,7 +42,7 @@
 
 <br/>Add Subject <a href='./subject_add.jsp'>Add Subject</a><br/>
 <h1> Subjects </h1>
-<table>
+<table class='gridTable'>
 <tr>
     <th>Subject Name</th>
     <th>Subject Code</th>
@@ -67,4 +66,4 @@
 
 <br/>Logout <a href='./logout'>Logout</a><br/>
 
-<%@ include file="footer.jsp" %>
+<jsp:include page="footer.jsp" />

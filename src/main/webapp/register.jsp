@@ -1,4 +1,4 @@
-<%@ include file="header.jsp" %>
+<jsp:include page="header.jsp" />
 <h2> User Registration </h2>
 <form action="./register" method="post">
     <table>
@@ -20,4 +20,4 @@
 <% } %>
 
 Login?<a href='./login.jsp'>Login</a><br/>
-<%@ include file="footer.jsp" %>
+<jsp:include page="footer.jsp" />
