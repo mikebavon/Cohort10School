@@ -290,6 +290,20 @@ JSP Standard tags begins with jsp
     jsp:getProperty
 4. jsp:param
 
+======= JSP Expression Language ========
+simplifies
+    1. Data access from bean
+    2. data access from implicit objects
+
+    syntax of EL ${expression}
+
+    Implicit objects in EL
+        1. applicationScope ====  application
+        2. sessionScope ==== session
+        3. requestScope === request
+        4. param === access param values
+
+
 
 
 

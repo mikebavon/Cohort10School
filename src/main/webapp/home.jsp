@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <%@ page import="com.cohort10.model.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
@@ -7,8 +8,7 @@
 <jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
 
 <jsp:include page="header.jsp" />
-
-<h2> Welcome: <%= session.getAttribute("username") %> Logged In At: <%= session.getAttribute("loggedInTime") %></h2>
+<h2> Welcome: ${sessionScope.username} Logged In At: ${sessionScope.loggedInTime}</h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
 <br/>Add Student <a href='./student_add.jsp'>Add Student</a><br/>
 <br/>
@@ -28,11 +28,11 @@
 
 %>
     <tr>
-        <td><%= student.getName() %></td>
-        <td><%= student.getRegNo() %></td>
-        <td><%= student.getGender().getName() %></td>
-        <td><%= student.getDateOfBirth() %></td>
-        <td><a href="./edit?id=<%= student.getId() %>">Edit</a>  | <a href="./delete">Delete</a></td>
+        <td>${student.name}</td>
+        <td>${student.regNo}</td>
+        <td>${student.gender}</td>
+        <td>${student.dateOfBirth}</td>
+        <td><a href="./edit?id=${student.id}">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
 
 <% } %>
@@ -55,8 +55,8 @@
 
 %>
     <tr>
-        <td><%= subject.getName() %></td>
-        <td><%= subject.getCode() %></td>
+        <td>${subject.name}</td>
+        <td>${subject.code}</td>
         <td><a href="./edit">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
 

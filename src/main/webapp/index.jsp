@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <jsp:include page="header.jsp" />
 To Register <a href='./register.jsp'>Register</a><br/>
 To Login <a href='./login.jsp'>Login</a><br/>
@@ -13,6 +14,7 @@ To Login <a href='./login.jsp'>Login</a><br/>
 </form>
 
 <br/> <br/> <br/> <br/>
-<%= request.getParameter("invalidAccess") %> <br/>
-<%= request.getParameter("invalidAccessWarn") %>
+
+${param.invalidAccess}
+${param.invalidAccessWarn}
 <jsp:include page="footer.jsp" />

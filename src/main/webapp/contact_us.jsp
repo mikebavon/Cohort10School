@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <jsp:include page="header.jsp" />
 
 <h2> Contact Us Message</h2>
@@ -6,11 +7,10 @@
 
 <h1>
     Thank You <br/>
-    Email: <jsp:getProperty name="contactUs" property="contactEmail" /> <br/>
-    Phone: <jsp:getProperty name="contactUs" property="messageAvailable" /> <br/>
+    Email: ${contactUs.contactEmail} <br/>
+    Phone: ${contactUs.messageAvailable} <br/>
     for contacting us.
 </h1>
-
 
 <jsp:include page="footer.jsp" />
 

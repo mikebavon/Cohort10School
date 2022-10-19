@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <jsp:include page="header.jsp" />
 <h2>Add Student</h2>
 <form action="./subject" method="post">
@@ -13,7 +14,7 @@
     if (loginError != null && !loginError.equals("")) {
 
 %>
-    <span style="color:red"> <%= application.getAttribute("addSubjectError") %> </span><br/>
+    <span style="color:red">${applicationScope.addSubjectError}</span><br/>
 
 <% } %>
 
