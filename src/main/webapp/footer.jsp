@@ -1,3 +1,3 @@
 <%@ page isELIgnored="false" %>
-    </body>
-</html>
+<%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
+<cft:Footer> This is the best system done by Cohort 10 </cft:Footer>

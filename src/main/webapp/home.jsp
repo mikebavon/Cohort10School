@@ -11,7 +11,7 @@
 <jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
 
 <jsp:include page="header.jsp" />
-<h2> Welcome: ${sessionScope.username} Logged In At: ${sessionScope.loggedInTime}</h2>
+<h2> Welcome: ${sessionScope.username} ${sessionScope.loggedInTime}</h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
 <br/>Add Student <a href='./student_add.jsp'>Add Student</a><br/>
 <br/>
@@ -62,7 +62,7 @@
             <jc:choose>
                 <jc:when test="${subject.code == 1}"> Kenyan </jc:when>
                 <jc:when test="${subject.code == 2}"> Not Kenyan </jc:when>
-                <jc:otherwise> Not Known</jc:otherwise>
+                <jc:otherwise>Not Known</jc:otherwise>
             </jc:choose>
         </td>
         <td><a href="./edit">Edit</a>  | <a href="./delete">Delete</a></td>

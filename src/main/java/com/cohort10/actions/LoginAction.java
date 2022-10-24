@@ -59,7 +59,7 @@ public class LoginAction extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("username", user.getUsername());
         session.setAttribute("profile", user.getProfile());
-        session.setAttribute("loggedInTime", "Logged In Time:" + new Date());
+        session.setAttribute("loggedInTime", " Logged In At: " + new Date());
 
         res.sendRedirect("./home.jsp");
 

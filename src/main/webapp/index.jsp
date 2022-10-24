@@ -22,4 +22,6 @@ To Login <a href='./login.jsp'>Login</a><br/>
 
 ${param.invalidAccess}
 ${param.invalidAccessWarn}
+
+<jch:Cohort />
 <jsp:include page="footer.jsp" />
