@@ -1,4 +1,9 @@
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="jc" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <jsp:include page="header.jsp" />
 To Register <a href='./register.jsp'>Register</a><br/>
 To Login <a href='./login.jsp'>Login</a><br/>

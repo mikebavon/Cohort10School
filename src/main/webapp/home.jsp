@@ -3,6 +3,9 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ taglib prefix="jc" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="jf" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="jfn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:useBean id="studentController" class="com.cohort10.controllers.StudentController" />
 <jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
@@ -23,22 +26,20 @@
 </tr>
 <%
     List<Student> students = studentController.list((Connection) application.getAttribute("dbConnection"), new Student());
-
-    for (Student student : students) {
-
+    pageContext.setAttribute("students", students);
 %>
+
+<jc:forEach items="${students}" var="student">
     <tr>
         <td>${student.name}</td>
         <td>${student.regNo}</td>
         <td>${student.gender}</td>
         <td>${student.dateOfBirth}</td>
-        <td><a href="./edit?id=${student.id}">Edit</a>  | <a href="./delete">Delete</a></td>
+        <td><a href="./edit?id=1">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
-
-<% } %>
+</jc:forEach>
 
 </table>
-
 
 <br/>Add Subject <a href='./subject_add.jsp'>Add Subject</a><br/>
 <h1> Subjects </h1>
@@ -46,21 +47,27 @@
 <tr>
     <th>Subject Name</th>
     <th>Subject Code</th>
+    <th>Notes</th>
     <th></th>
 </tr>
 <%
     List<Subject> subjects = subjectController.list((Connection) application.getAttribute("dbConnection"), new Subject());
-
-    for (Subject subject : subjects) {
-
+    pageContext.setAttribute("subjects", subjects);
 %>
+<jc:forEach items="${subjects}" var="subject">
     <tr>
         <td>${subject.name}</td>
         <td>${subject.code}</td>
+        <td>
+            <jc:choose>
+                <jc:when test="${subject.code == 1}"> Kenyan </jc:when>
+                <jc:when test="${subject.code == 2}"> Not Kenyan </jc:when>
+                <jc:otherwise> Not Known</jc:otherwise>
+            </jc:choose>
+        </td>
         <td><a href="./edit">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
-
-<% } %>
+</jc:forEach>
 
 </table>
 

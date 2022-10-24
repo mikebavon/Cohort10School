@@ -6,6 +6,7 @@
 5. Context Dependency Injection ///NO use of new Key word
 6. Enterprise Java Beans (Ejb) ///NO use of new Key word
 7. JPA - Java Persistence APIs
+////-----introduce javascript ------
 8. Webservices - Restful(JAX-RS), then SOAP(JAX-WS)
 9. JMS - RabbitMq
 10. Java Security
@@ -303,6 +304,17 @@ simplifies
         3. requestScope === request
         4. param === access param values
 
+==== JSTL  TAGS =====
+JSTL ---- Java Standard Tag Library
+Its a library with a collection of tags that you can use in jsp. The aim is to remove scriplets and instead use
+tags.
+
+JSTL CORE TAGS
+
+1. JSTL prefix:out tag - eliminates expression tags
+2. JSTL prefix:set -- declaring a variable
+3. JSTL prefix:forEach
+4. JSTL prefix:choose, prefix:when, prefix:otherwise
 
 
 

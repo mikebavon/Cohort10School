@@ -69,6 +69,10 @@ public class StudentController implements Serializable {
 
         }
 
+        for (Student student : students) {
+            System.out.println(student.getName());
+        }
+
         return students;
 
     }
