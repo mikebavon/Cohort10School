@@ -3,8 +3,10 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="cht" uri="WEB-INF/tlds/header.tld" %>
+<%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
 
-<jsp:include page="header.jsp" />
+<cht:Header><h1>${applicationScope.applicationLabel}</h1></cht:Header>
 To Register <a href='./register.jsp'>Register</a><br/>
 To Login <a href='./login.jsp'>Login</a><br/>
 
@@ -23,5 +25,4 @@ To Login <a href='./login.jsp'>Login</a><br/>
 ${param.invalidAccess}
 ${param.invalidAccessWarn}
 
-<jch:Cohort />
-<jsp:include page="footer.jsp" />
+<cft:Footer> This is the best system done by Cohort 10 </cft:Footer>
