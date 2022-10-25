@@ -5,6 +5,11 @@
     <tag>
         <name>Header</name>
         <tag-class>com.cohort10.customtags.HeaderTag</tag-class>
-        <body-content>empty</body-content>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>applicationLabel</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 </taglib>

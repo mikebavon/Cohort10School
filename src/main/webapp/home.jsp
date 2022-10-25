@@ -6,11 +6,13 @@
 <%@ taglib prefix="jc" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="jf" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="jfn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="cht" uri="WEB-INF/tlds/header.tld" %>
+<%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
 
 <jsp:useBean id="studentController" class="com.cohort10.controllers.StudentController" />
 <jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
 
-<jsp:include page="header.jsp" />
+<cht:Header><h1>${applicationScope.applicationLabel}</h1></cht:Header>
 <h2> Welcome: ${sessionScope.username} ${sessionScope.loggedInTime}</h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
 <br/>Add Student <a href='./student_add.jsp'>Add Student</a><br/>
@@ -73,4 +75,4 @@
 
 <br/>Logout <a href='./logout'>Logout</a><br/>
 
-<jsp:include page="footer.jsp" />
+<cft:Footer> This is the best system done by Cohort 10 </cft:Footer>
