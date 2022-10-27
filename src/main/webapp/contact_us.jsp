@@ -1,6 +1,8 @@
 <%@ page isELIgnored="false" %>
-<jsp:include page="header.jsp" />
+<%@ taglib prefix="cht" uri="WEB-INF/tlds/header.tld" %>
+<%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
 
+<cht:Header applicationLabel="${applicationScope.applicationLabel}" />
 <h2> Contact Us Message</h2>
 <jsp:useBean id="contactUs" class="com.cohort10.model.ContactUs" />
 <jsp:setProperty name="contactUs" property="*" />

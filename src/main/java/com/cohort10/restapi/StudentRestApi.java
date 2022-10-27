@@ -9,7 +9,7 @@ public class StudentRestApi {
 
     public List<Student> list() {
 
-        return new StudentController().list(null, new Student());
+        return new StudentController().list(new Student());
 
     }
 }

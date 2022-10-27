@@ -1,7 +1,10 @@
 package com.cohort10.actions;
 
+import com.cohort10.controllers.AuthController;
 import com.cohort10.model.User;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,15 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Date;
 
 
 @WebServlet(urlPatterns = "/login")
 public class LoginAction extends HttpServlet {
+
+    @Inject
+    AuthController authController;
 
     ServletContext servletCtx = null;
 
@@ -31,8 +33,6 @@ public class LoginAction extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-        PrintWriter wr = res.getWriter();
 
         String password = req.getParameter("password");
         String username = req.getParameter("username");
@@ -49,7 +49,7 @@ public class LoginAction extends HttpServlet {
             return;
         }
 
-        User user = this.login(username, password);
+        User user = authController.login(username, password);
         if (user == null || user.getId() == null) {
             servletCtx.setAttribute("loginError" , "Password is username & password combination<br/>");
             res.sendRedirect("./login.jsp");
@@ -62,30 +62,6 @@ public class LoginAction extends HttpServlet {
         session.setAttribute("loggedInTime", " Logged In At: " + new Date());
 
         res.sendRedirect("./home.jsp");
-
-    }
-
-    public User login(String username, String password) {
-
-        User user = null;
-
-        try {
-            Connection connection = (Connection) servletCtx.getAttribute("dbConnection");
-            Statement sqlStmt = connection.createStatement();
-
-            ResultSet result = sqlStmt.executeQuery("select * from users where username='" + username + "' and " +
-                    "password='" + password + "'");
-            while (result.next()) {
-                user = new User();
-                user.setId((long) result.getInt("id"));
-                user.setUsername(result.getString("username"));
-            }
-
-        }catch (Exception ex) {
-            System.out.println("Log In Error: " + ex.getMessage());
-        }
-
-        return user;
 
     }
 }

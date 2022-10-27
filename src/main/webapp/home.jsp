@@ -12,7 +12,7 @@
 <jsp:useBean id="studentController" class="com.cohort10.controllers.StudentController" />
 <jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
 
-<cht:Header><h1>${applicationScope.applicationLabel}</h1></cht:Header>
+<cht:Header applicationLabel="${applicationScope.applicationLabel}" />
 <h2> Welcome: ${sessionScope.username} ${sessionScope.loggedInTime}</h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
 <br/>Add Student <a href='./student_add.jsp'>Add Student</a><br/>
@@ -27,7 +27,7 @@
     <th></th>
 </tr>
 <%
-    List<Student> students = studentController.list((Connection) application.getAttribute("dbConnection"), new Student());
+    List<Student> students = studentController.list(new Student());
     pageContext.setAttribute("students", students);
 %>
 
@@ -53,7 +53,7 @@
     <th></th>
 </tr>
 <%
-    List<Subject> subjects = subjectController.list((Connection) application.getAttribute("dbConnection"), new Subject());
+    List<Subject> subjects = subjectController.list(new Subject());
     pageContext.setAttribute("subjects", subjects);
 %>
 <jc:forEach items="${subjects}" var="subject">

@@ -1,5 +1,5 @@
 <%@ page isELIgnored="false" %>
-<jsp:include page="header.jsp" />
+<cht:Header applicationLabel="${applicationScope.applicationLabel}" />
 <h2> User Registration </h2>
 <form action="./register" method="post">
     <table>
@@ -21,4 +21,4 @@
 <% } %>
 
 Login?<a href='./login.jsp'>Login</a><br/>
-<jsp:include page="footer.jsp" />
+<cft:Footer> This is the best system done by Cohort 10 </cft:Footer>

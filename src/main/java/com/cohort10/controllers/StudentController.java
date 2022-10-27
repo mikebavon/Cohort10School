@@ -4,6 +4,8 @@ import com.cohort10.common.Gender;
 import com.cohort10.model.Student;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,7 +16,10 @@ import java.util.List;
 
 public class StudentController implements Serializable {
 
-    public void add(Connection connection, Student student) {
+    @Resource(lookup = "java:jboss/datasources/School")
+    DataSource dataSource;
+
+    public void add(Student student) {
         if (student == null || StringUtils.isBlank(student.getName()) || StringUtils.isBlank(student.getRegNo()))
             return;
 
@@ -26,10 +31,10 @@ public class StudentController implements Serializable {
 
         try {
 
-            Statement sqlStmt = connection.createStatement();
+            Statement sqlStmt = dataSource.getConnection().createStatement();
             sqlStmt.executeUpdate("insert into students(name,reg_no,date_of_birth,gender) " +
-                    "values('" + student.getName() + "','" + student.getRegNo() + "'," +
-                    "'" + new Date(student.getDateOfBirth().getTime()) + "','" + student.getGender().name() + "')");
+                "values('" + student.getName() + "','" + student.getRegNo() + "'," +
+                "'" + new Date(student.getDateOfBirth().getTime()) + "','" + student.getGender().name() + "')");
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -46,11 +51,11 @@ public class StudentController implements Serializable {
 
     }
 
-    public List<Student> list(Connection connection, Student filter) {
+    public List<Student> list(Student filter) {
         List<Student> students = new ArrayList<Student>();
 
         try {
-            Statement sqlStmt = connection.createStatement();
+            Statement sqlStmt = dataSource.getConnection().createStatement();
 
             ResultSet result = sqlStmt.executeQuery("select * from students");
             while (result.next()) {

@@ -316,11 +316,67 @@ JSTL CORE TAGS
 3. JSTL prefix:forEach
 4. JSTL prefix:choose, prefix:when, prefix:otherwise
 
+SOLID not same as OOP
 
 
+Use OOP Principles to implement SOLID principles...
 
 
+S - Single Responsibility - a class should do one thing and therefore it should have only a single reason to change.
+O - Open Closed - a class should open for extension and closed for modification.......extends..inherit
+L - Liskov Substitution - subclasses should be substitutable for their base classes
+I - Interface Segregation - have multiple simple interfaces
 
+        I CalcArea
+            area()
+            volume()
+
+        I CalcLength
+            length()
+
+        I CalcWidth
+            length()
+
+        class StraightLine implements CalcLength
+
+        class Square implements CalcArea,CalcLength,CalcWidth
+
+D - Dependency Injection **** must be understood to understand:
+    - Resource Creation
+    - Context Dependency Injection
+
+    Database db = new Database();
+
+    inversion of control (IoC) -------- instead your application creating the object you let the container(wildfly) create
+        manage the life cycle of that object.....in short the instance of the object is provided in your application
+        by another entity (in this case wildfly) for you to use...no use of new key word....
+
+
+================ Resource creation =============
+
+Resource is a program object that provides a service, data etc. e.g database servers, messaging systems
+
+example resource objects
+    1. jdbc datasource
+    2. jpa
+    3. jms queues
+    4. ejbs
+    5. web service (rest & soap)
+
+Resource and Java Naming & Directory Interface (JNDI)
+Distributed system...components & systems can exist in different application, different machine, will combine rources
+with defined path to access that particular resources..(jndi)
+    java:jboss/datasources/School
+
+
+====== @Resource annotation ======
+ - helps in extracting resources (database, jms etc) from any container.... as explained extraction of
+    datasource from wildfly container...
+
+ -@Resource can be used to annotate a
+    -class (type)
+    -field (properties) --
+    -method
 
 
 

@@ -12,7 +12,9 @@ import java.sql.Connection;
 import java.sql.Statement;
 
 @WebServlet("/register")
-public class RegisterAction extends HttpServlet {    ServletContext servletCtx = null;
+public class RegisterAction extends HttpServlet {
+
+    ServletContext servletCtx = null;
 
     public void init(ServletConfig config) throws ServletException{
         super.init(config);

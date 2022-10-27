@@ -5,6 +5,7 @@ import com.cohort10.model.Subject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet("/subject")
 public class SubjectAction extends HttpServlet {
+
+    @Inject
+    SubjectController subjectController;
 
     ServletContext servletCtx = null;
 
@@ -51,9 +54,7 @@ public class SubjectAction extends HttpServlet {
             return;
         }
 
-
-        SubjectController subjectController = new SubjectController();
-        subjectController.add((Connection) servletCtx.getAttribute("dbConnection"), subject);
+        subjectController.add(subject);
 
         res.sendRedirect("./home.jsp");
 

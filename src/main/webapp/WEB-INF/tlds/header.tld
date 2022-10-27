@@ -11,5 +11,13 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>color</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <name>date</name>
+            <required>false</required>
+        </attribute>
     </tag>
 </taglib>

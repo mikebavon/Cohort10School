@@ -6,7 +6,7 @@
 <%@ taglib prefix="cht" uri="WEB-INF/tlds/header.tld" %>
 <%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
 
-<cht:Header applicationLabel="${applicationScope.applicationLabel}" />
+<cht:Header applicationLabel="${applicationScope.applicationLabel}" color="red"/>
 To Register <a href='./register.jsp'>Register</a><br/>
 To Login <a href='./login.jsp'>Login</a><br/>
 
