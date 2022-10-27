@@ -348,7 +348,8 @@ D - Dependency Injection **** must be understood to understand:
     Database db = new Database();
 
     inversion of control (IoC) -------- instead your application creating the object you let the container(wildfly) create
-        manage the life cycle of that object.....in short the instance of the object is provided in your application
+        and manage the life cycle of that object (contextual instance).....
+        in short the instance of the object is provided in your application
         by another entity (in this case wildfly) for you to use...no use of new key word....
 
 

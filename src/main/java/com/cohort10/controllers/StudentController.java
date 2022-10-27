@@ -5,6 +5,7 @@ import com.cohort10.model.Student;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -19,6 +20,9 @@ public class StudentController implements Serializable {
     @Resource(lookup = "java:jboss/datasources/School")
     DataSource dataSource;
 
+    @Inject
+    NameValidationUtility nameValidationUtility;
+
     public void add(Student student) {
         if (student == null || StringUtils.isBlank(student.getName()) || StringUtils.isBlank(student.getRegNo()))
             return;
@@ -28,6 +32,8 @@ public class StudentController implements Serializable {
 
         if (student.getDateOfBirth() == null)
             student.setDateOfBirth(new java.util.Date());
+
+        nameValidationUtility.validateName(student.getName());
 
         try {
 
