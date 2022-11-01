@@ -448,6 +448,11 @@ CarI bmw;
 @Toyota
 CarI toyota;
 
+built in qualifiers
+    -@Named
+    -@Any
+    -@Default
+
 
 
 

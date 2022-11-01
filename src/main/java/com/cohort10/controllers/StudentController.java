@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@HighSchoolStudent
+@Named("highSchool")
 @RequestScoped
 public class StudentController implements Serializable, StudentControllerI {
 

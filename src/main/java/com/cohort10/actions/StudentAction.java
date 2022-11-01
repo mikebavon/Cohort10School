@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ import java.io.IOException;
 public class StudentAction extends HttpServlet {
 
     @Inject
-    @HighSchoolStudent
+    @Named("university")
     StudentControllerI studentController;
 
     ServletContext servletCtx = null;

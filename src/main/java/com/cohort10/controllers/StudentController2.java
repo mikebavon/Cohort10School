@@ -3,12 +3,13 @@ package com.cohort10.controllers;
 import com.cohort10.common.Gender;
 import com.cohort10.model.Student;
 
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@UniversityStudent
+@Named("university")
 public class StudentController2 implements Serializable, StudentControllerI {
 
     public void add(Student student) {
