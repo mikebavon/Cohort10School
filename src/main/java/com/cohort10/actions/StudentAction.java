@@ -1,6 +1,8 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.StudentController;
+import com.cohort10.controllers.HighSchoolStudent;
+import com.cohort10.controllers.StudentControllerI;
+import com.cohort10.controllers.UniversityStudent;
 import com.cohort10.model.Student;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +21,8 @@ import java.io.IOException;
 public class StudentAction extends HttpServlet {
 
     @Inject
-    StudentController studentController;
+    @HighSchoolStudent
+    StudentControllerI studentController;
 
     ServletContext servletCtx = null;
 

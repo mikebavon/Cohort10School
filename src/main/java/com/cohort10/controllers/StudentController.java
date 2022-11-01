@@ -17,15 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@HighSchoolStudent
 @RequestScoped
-@Named("studentController")
-public class StudentController implements Serializable {
+public class StudentController implements Serializable, StudentControllerI {
 
     @Resource(lookup = "java:jboss/datasources/School")
     DataSource dataSource;
-
-    @Inject
-    NameValidationUtility nameValidationUtility;
 
     private List<Student> list;
 
@@ -38,8 +35,6 @@ public class StudentController implements Serializable {
 
         if (student.getDateOfBirth() == null)
             student.setDateOfBirth(new java.util.Date());
-
-        nameValidationUtility.validateName(student.getName());
 
         try {
 
@@ -72,7 +67,7 @@ public class StudentController implements Serializable {
 
             ResultSet result = sqlStmt.executeQuery("select * from students");
             while (result.next()) {
-                com.cohort10.model.Student student = new com.cohort10.model.Student();
+                Student student = new Student();
                 student.setId((long) result.getInt("id"));
                 student.setName(result.getString("name"));
                 student.setRegNo(result.getString("reg_no"));
@@ -96,5 +91,9 @@ public class StudentController implements Serializable {
 
     public void setList(List<Student> list) {
         this.list = list;
+    }
+
+    public void enroll(Student student) {
+
     }
 }

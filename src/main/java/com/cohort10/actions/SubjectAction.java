@@ -1,6 +1,7 @@
 package com.cohort10.actions;
 
 import com.cohort10.controllers.SubjectController;
+import com.cohort10.controllers.SubjectControllerI;
 import com.cohort10.model.Subject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class SubjectAction extends HttpServlet {
 
     @Inject
-    SubjectController subjectController;
+    SubjectControllerI subjectController;
 
     ServletContext servletCtx = null;
 

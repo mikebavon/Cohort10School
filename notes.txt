@@ -379,6 +379,74 @@ with defined path to access that particular resources..(jndi)
     -field (properties) --
     -method
 
+===== CDI =======
+   - set APIs to achieve IoC
+   - Context Dependency Injection - mean away of achieving Ioc
+   - CDI Container wildfly (weld)
+   - CDI Container creates contextual instance for beans......
+   - Java bean -- must have non argument constructor, private properties with getters and setters;
+   - You are not creating instance of object by useful, if you do so...you loose cdi powers
+
+   - if cdi is an api...implementations:
+    * weld ---this the one that we ....it comes bundled with wildfly
+
+   contextual instance - instances that are created and managed by the CDI Containers
+
+   CDI container knows what contextual instance to inject in objects.
+
+Injections points
+    - field(property)
+
+        @Inject
+        Student student;
+
+    - method
+
+        @Inject
+        public void setStudent(Student student){
+            this.student = student;
+        }
+
+    - constructor
+
+        @Inject
+        public Student(Subject subject){
+            this.subject = subject;
+        }
+
+
+ ===== Qualifiers === =
+ -for more than one implementation, create qualifires to qualify implementation
+
+ CarI
+    startEngine();
+    break();
+    accelerate();
+
+ @Bmw
+ Bmw implement CarI
+    startEngine(){}
+    break(){}
+    accelerate(){ }
+
+ @Toyota
+ Toyota implement CarI
+    startEngine(){}
+    break(){}
+    accelerate(){ }
+
+CarI bmw = new Bmw();
+CarI toyota =  new Toyota();
+
+
+@Inject
+@Bmw
+CarI bmw;
+
+
+@Inject
+@Toyota
+CarI toyota;
 
 
 

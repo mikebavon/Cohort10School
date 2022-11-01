@@ -14,6 +14,15 @@ public class Student extends BaseEntity {
 
     private Gender gender;
 
+    public Student(){}
+
+    public Student(String name, String regNo, Date dateOfBirth, Gender gender){
+        this.name = name;
+        this.regNo = regNo;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+    }
+
     public String getName() {
         return name;
     }

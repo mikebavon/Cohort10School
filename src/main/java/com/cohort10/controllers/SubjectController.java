@@ -15,10 +15,11 @@ import java.util.List;
 
 @RequestScoped
 @Named("subjectController")
-public class SubjectController implements Serializable {
+public class SubjectController implements Serializable,SubjectControllerI {
 
     @Resource(lookup = "java:jboss/datasources/School")
     DataSource dataSource;
+
 
     private List<Subject> list;
 
