@@ -1,6 +1,8 @@
 package com.cohort10.controllers;
 
-public class NameValidationUtility {
+import java.io.Serializable;
+
+public class NameValidationUtility implements Serializable {
 
 
     public boolean validateName(String name) {

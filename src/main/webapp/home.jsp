@@ -9,9 +9,6 @@
 <%@ taglib prefix="cht" uri="WEB-INF/tlds/header.tld" %>
 <%@ taglib prefix="cft" uri="WEB-INF/tlds/footer.tld" %>
 
-<jsp:useBean id="studentController" class="com.cohort10.controllers.StudentController" />
-<jsp:useBean id="subjectController" class="com.cohort10.controllers.SubjectController" />
-
 <cht:Header applicationLabel="${applicationScope.applicationLabel}" />
 <h2> Welcome: ${sessionScope.username} ${sessionScope.loggedInTime}</h2>
 <span style="color:green;font-size: 24px;font-weight:bold">Logged In</span>
@@ -26,12 +23,8 @@
     <th>Date Of Birth</th>
     <th></th>
 </tr>
-<%
-    List<Student> students = studentController.list(new Student());
-    pageContext.setAttribute("students", students);
-%>
 
-<jc:forEach items="${students}" var="student">
+<jc:forEach items="${studentController.list}" var="student">
     <tr>
         <td>${student.name}</td>
         <td>${student.regNo}</td>
@@ -52,11 +45,7 @@
     <th>Notes</th>
     <th></th>
 </tr>
-<%
-    List<Subject> subjects = subjectController.list(new Subject());
-    pageContext.setAttribute("subjects", subjects);
-%>
-<jc:forEach items="${subjects}" var="subject">
+<jc:forEach items="${subjectController.list}" var="subject">
     <tr>
         <td>${subject.name}</td>
         <td>${subject.code}</td>
