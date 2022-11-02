@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
-public @interface UniversityStudent {
+public @interface StudentQualifier {
+    StudentType type() default StudentType.UNIVERSITY;
 }

@@ -23,8 +23,6 @@ public class StudentController implements Serializable, StudentControllerI {
     @Resource(lookup = "java:jboss/datasources/School")
     DataSource dataSource;
 
-    private List<Student> list;
-
     public void add(Student student) {
         if (student == null || StringUtils.isBlank(student.getName()) || StringUtils.isBlank(student.getRegNo()))
             return;
@@ -86,10 +84,6 @@ public class StudentController implements Serializable, StudentControllerI {
         }
 
         return students;
-    }
-
-    public void setList(List<Student> list) {
-        this.list = list;
     }
 
     public void enroll(Student student) {

@@ -24,7 +24,7 @@
     <th></th>
 </tr>
 
-<jc:forEach items="${studentController.list}" var="student">
+<jc:forEach items="${highSchool.list}" var="student">
     <tr>
         <td>${student.name}</td>
         <td>${student.regNo}</td>
@@ -45,7 +45,7 @@
     <th>Notes</th>
     <th></th>
 </tr>
-<jc:forEach items="${highSchool.list}" var="subject">
+<jc:forEach items="${subjectController.list}" var="subject">
     <tr>
         <td>${subject.name}</td>
         <td>${subject.code}</td>

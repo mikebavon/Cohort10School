@@ -1,9 +1,11 @@
 package com.cohort10.actions;
 
 import com.cohort10.controllers.AuthController;
+import com.cohort10.controllers.TestAlternativeI;
 import com.cohort10.model.User;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -20,8 +22,11 @@ import java.util.Date;
 @WebServlet(urlPatterns = "/login")
 public class LoginAction extends HttpServlet {
 
-    @Inject
+    @EJB
     AuthController authController;
+
+    @Inject
+    TestAlternativeI testAlternative;
 
     ServletContext servletCtx = null;
 
@@ -33,6 +38,8 @@ public class LoginAction extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        testAlternative.display();
 
         String password = req.getParameter("password");
         String username = req.getParameter("username");

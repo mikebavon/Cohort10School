@@ -438,23 +438,82 @@ Injections points
 CarI bmw = new Bmw();
 CarI toyota =  new Toyota();
 
-
 @Inject
 @Bmw
 CarI bmw;
-
 
 @Inject
 @Toyota
 CarI toyota;
 
+- you can avoid annotation overloading of Qualifiers by implementing one qualifier with members(arguments)
+- Multiple Qualifiers
+
+@Student
+@Citizen
+@Gender(type = "MALE")
+public class Student {
+
+
+}
+
+@Inject
+@Student
+@Citizen
+@Gender(type = "MALE")
+private Student student;
+
 built in qualifiers
-    -@Named
-    -@Any
-    -@Default
+    - @Named - set management bean and access it jsp etc, also used as qualifier
+    - @Default - available in all beans without a qualifier
+    - @Any - allows to loop through implementations of a qualifier
+    - @Alternative - the bean...the implementation with annotation at alternative will take priority
 
 
+ =============== @Any ======
 
+@Inject
+@Any
+List<StudentControllerI> student
+
+public void add(int selection) {
+     for (StudentControllerI stCtl : student) {
+        if (selection=0 && stCtl.getClass().getSimpleName() == 'StudentController2') {
+            stCtl.add();
+            break;
+        }
+     }
+ }
+
+
+ ====== @Alternative ======
+
+ --disable @Default to avoid ambiguity ====
+
+  CarI
+    startEngine();
+    break();
+    accelerate();
+
+ @Alternative
+ Bmw implement CarI
+    startEngine(){}
+    break(){}
+    accelerate(){ }
+
+ @Alternative
+ Toyota implement CarI
+    startEngine(){}
+    break(){}
+    accelerate(){ }
+
+ Mercedes implement CarI
+    startEngine(){}
+    break(){}
+    accelerate(){ }
+
+@Inject -- creates contextual --- (cdi itself)
+CarI car; // this inject Mercedes
 
 
 

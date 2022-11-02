@@ -3,11 +3,16 @@ package com.cohort10.controllers;
 import com.cohort10.model.User;
 
 import javax.annotation.Resource;
+import javax.ejb.Local;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+@Stateless
+@Remote
 public class AuthController {
 
     @Resource(lookup = "java:jboss/datasources/School")

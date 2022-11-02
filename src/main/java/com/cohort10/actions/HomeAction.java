@@ -1,5 +1,6 @@
 package com.cohort10.actions;
 
+import javax.decorator.Decorator;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
