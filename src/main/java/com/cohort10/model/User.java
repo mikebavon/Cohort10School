@@ -1,21 +1,27 @@
 package com.cohort10.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class User extends BaseEntity{
 
-    private String username;
-
-
+    @Column
     private String profile;
 
+    @Column
     private String email;
 
-    public String getUsername() {
-        return username;
-    }
+    @Transient
+    private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Transient
+    private String confirmPassword;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Auth> auths = new ArrayList<Auth>();
 
     public String getProfile() {
         return profile;
@@ -31,5 +37,34 @@ public class User extends BaseEntity{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public List<Auth> getAuths() {
+        return auths;
+    }
+
+    public void setAuths(List<Auth> auths) {
+        this.auths = auths;
+    }
+
+    public void addAuth(Auth auth){
+        auth.setUser(this);
+        getAuths().add(auth);
     }
 }

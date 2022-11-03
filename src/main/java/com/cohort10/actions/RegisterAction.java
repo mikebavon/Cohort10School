@@ -1,5 +1,12 @@
 package com.cohort10.actions;
 
+import com.cohort10.controllers.UserBeanI;
+import com.cohort10.model.Student;
+import com.cohort10.model.User;
+import org.apache.commons.beanutils.BeanUtils;
+
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,6 +21,9 @@ import java.sql.Statement;
 @WebServlet("/register")
 public class RegisterAction extends HttpServlet {
 
+    @EJB
+    UserBeanI userBean;
+
     ServletContext servletCtx = null;
 
     public void init(ServletConfig config) throws ServletException{
@@ -24,44 +34,24 @@ public class RegisterAction extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-        String email = req.getParameter("email");
 
-        String actionError = "";
-        if (email == null || email.equalsIgnoreCase(""))
-            actionError = "Email is required<br/>";
+        User user = new User();
 
-        if (password == null || password.equalsIgnoreCase(""))
-            actionError += "Password is required<br/>";
-
-        if (confirmPassword == null || confirmPassword.equalsIgnoreCase(""))
-            actionError += "Confirm password is required<br/>";
-
-        if (password != null && confirmPassword != null && !password.equals(confirmPassword))
-            actionError += "Password & confirm password do not match<br/>";
-
-        servletCtx.setAttribute("registerError" , actionError);
-        if (actionError.equals("")) {
-            this.insert(email, password);
-            res.sendRedirect("./login.jsp");
-        } else
-            res.sendRedirect("./register.jsp");
-    }
-
-    public void insert(String username, String password) {
         try {
-            Connection connection = (Connection) servletCtx.getAttribute("dbConnection");
+            BeanUtils.populate(user, req.getParameterMap());
 
-            Statement sqlStmt = connection.createStatement();
-            sqlStmt.executeUpdate("insert into users(username,password) " +
-                "values('" + username.trim() + "','" + password + "')");
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        try {
+            userBean.register(user);
+            res.sendRedirect("./login.jsp");
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-
+            servletCtx.setAttribute("registerError" , ex.getMessage());
+            res.sendRedirect("./register.jsp");
         }
 
     }
-
 }

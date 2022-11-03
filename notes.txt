@@ -536,3 +536,14 @@ public class PatientApi {
 
 
 }
+
+====== JPA =========
+    -Java Persistence API
+    -Its a collection interface (API) to handle persistence to data to a database. (specification)
+
+ORM - object relation mapping ---- map an object to a table in a database;
+    - how do you make you application compatible with database -- jpa come in, you deal with the object and jpa deals
+        with the underlying database...
+            jpa implementor (Hibernate, EclipseLink) deals with
+
+to use jpa with the implementation --- jpa configuration..file which is an .xml called persistence.xml

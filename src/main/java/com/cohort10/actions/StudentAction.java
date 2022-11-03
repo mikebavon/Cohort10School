@@ -1,12 +1,12 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.StudentControllerI;
+import com.cohort10.controllers.StudentBeanI;
 import com.cohort10.model.Student;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,9 +19,8 @@ import java.io.IOException;
 @WebServlet("/student")
 public class StudentAction extends HttpServlet {
 
-    @Inject
-    @Named("highSchool")
-    StudentControllerI studentController;
+    @EJB
+    StudentBeanI studentBean;
 
     ServletContext servletCtx = null;
 
@@ -56,7 +55,7 @@ public class StudentAction extends HttpServlet {
             return;
         }
 
-        studentController.add(student);
+        studentBean.add(student);
 
         res.sendRedirect("./home.jsp");
 

@@ -20,7 +20,7 @@ public class AuthApi {
     @Path("/login")
     public Response login(@PathParam("username") String username,@PathParam("password") String password) {
 
-        User user = authBean.login(username, password);
+        User user = new User(); //authBean.login(username, password);
 
         return Response.status(200).entity(user).build();
 

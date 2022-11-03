@@ -2,6 +2,7 @@ package com.cohort10.restapi;
 
 import com.cohort10.controllers.AuthBean;
 import com.cohort10.controllers.AuthBeanI;
+import com.cohort10.model.Auth;
 import com.cohort10.model.User;
 
 import javax.ejb.EJB;
@@ -14,6 +15,6 @@ public class AuthSoapApi {
     AuthBeanI authBean;
 
     public User login(String username, String password) {
-        return authBean.login(username, password);
+        return new User(); //authBean.login(new Auth());
     }
 }

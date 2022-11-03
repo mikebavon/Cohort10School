@@ -2,16 +2,25 @@ package com.cohort10.model;
 
 import com.cohort10.common.Gender;
 
+import javax.persistence.*;
 import java.util.Date;
 
+
+@Entity
+@Table(name = "students")
 public class Student extends BaseEntity {
 
+    @Column
     private String name;
 
+    @Column(name = "reg_no")
     private String regNo;
 
+    @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @Column
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     public Student(){}

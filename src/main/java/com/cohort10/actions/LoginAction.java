@@ -1,11 +1,11 @@
 package com.cohort10.actions;
 
 import com.cohort10.controllers.AuthBeanI;
-import com.cohort10.controllers.TestAlternativeI;
+import com.cohort10.model.Auth;
 import com.cohort10.model.User;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,9 +24,6 @@ public class LoginAction extends HttpServlet {
     @EJB
     AuthBeanI authBean;
 
-    @Inject
-    TestAlternativeI testAlternative;
-
     ServletContext servletCtx = null;
 
     public void init(ServletConfig config) throws ServletException{
@@ -38,36 +35,28 @@ public class LoginAction extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        testAlternative.display();
+        Auth auth = new Auth();
 
-        String password = req.getParameter("password");
-        String username = req.getParameter("username");
+        try {
+            BeanUtils.populate(auth, req.getParameterMap());
 
-        if (username == null || username.equalsIgnoreCase("")) {
-            servletCtx.setAttribute("loginError" , "Username is required<br/>");
-            res.sendRedirect("./login.jsp");
-            return;
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
         }
 
-        if (password == null || password.equalsIgnoreCase("")) {
-            servletCtx.setAttribute("loginError" , "Password is required<br/>");
+        try {
+            User user = authBean.login(auth);
+            HttpSession session = req.getSession(true);
+            session.setAttribute("username", user.getEmail());
+            session.setAttribute("profile", user.getProfile());
+            session.setAttribute("loggedInTime", " Logged In At: " + new Date());
+
+            res.sendRedirect("./home.jsp");
+
+        } catch (Exception ex) {
+            servletCtx.setAttribute("loginError" , ex.getMessage());
             res.sendRedirect("./login.jsp");
-            return;
         }
-
-        User user = authBean.login(username, password);
-        if (user == null || user.getId() == null) {
-            servletCtx.setAttribute("loginError" , "Password is username & password combination<br/>");
-            res.sendRedirect("./login.jsp");
-            return;
-        }
-
-        HttpSession session = req.getSession(true);
-        session.setAttribute("username", user.getUsername());
-        session.setAttribute("profile", user.getProfile());
-        session.setAttribute("loggedInTime", " Logged In At: " + new Date());
-
-        res.sendRedirect("./home.jsp");
 
     }
 }

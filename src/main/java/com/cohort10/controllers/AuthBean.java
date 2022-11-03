@@ -1,58 +1,39 @@
 package com.cohort10.controllers;
 
+import com.cohort10.model.Auth;
 import com.cohort10.model.User;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 @Remote
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class AuthBean implements AuthBeanI {
 
+    @PersistenceContext
+    EntityManager em;
 
+    public User login(Auth auth) throws Exception{
 
+        if (auth.getUsername() == null || auth.getPassword() == null)
+            throw new Exception("Invalid password or username");
 
-    @PostConstruct
-    public void init(){
-        System.out.println("Bean has bean created we can ..do stuff..");
-    }
+        List<Auth> auths = em.createQuery("FROM Auth a WHERE a.username=:usrName " +
+            "and a.password=:pwd", Auth.class)
+            .setParameter("usrName", auth.getUsername())
+            .setParameter("pwd", auth.getPassword())
+            .getResultList();
 
-    @PreDestroy
-    public void destroy(){
-        System.out.println("Bean is about to be destroyed....release resource.. close connection");
-    }
+        if (auths == null || auths.isEmpty() || auths.get(0) == null)
+            throw new Exception("Invalid username or password");
 
-    @Resource(lookup = "java:jboss/datasources/School")
-    DataSource dataSource;
-
-    public User login(String username, String password) {
-
-        User user = null;
-
-        try {
-            Connection connection = dataSource.getConnection();
-            Statement sqlStmt = connection.createStatement();
-
-            ResultSet result = sqlStmt.executeQuery("select * from users where username='" + username + "' and " +
-                    "password='" + password + "'");
-            while (result.next()) {
-                user = new User();
-                user.setId((long) result.getInt("id"));
-                user.setUsername(result.getString("username"));
-            }
-
-        }catch (Exception ex) {
-            System.out.println("Log In Error: " + ex.getMessage());
-        }
-
-        return user;
+        return auths.get(0).getUser();
 
     }
 }

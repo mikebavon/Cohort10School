@@ -1,12 +1,11 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.SubjectController;
-import com.cohort10.controllers.SubjectControllerI;
+import com.cohort10.controllers.SubjectBeanI;
 import com.cohort10.model.Subject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,8 +18,8 @@ import java.io.IOException;
 @WebServlet("/subject")
 public class SubjectAction extends HttpServlet {
 
-    @Inject
-    SubjectControllerI subjectController;
+    @EJB
+    SubjectBeanI subjectBean;
 
     ServletContext servletCtx = null;
 
@@ -55,7 +54,7 @@ public class SubjectAction extends HttpServlet {
             return;
         }
 
-        subjectController.add(subject);
+        subjectBean.add(subject);
 
         res.sendRedirect("./home.jsp");
 
