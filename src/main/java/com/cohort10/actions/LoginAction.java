@@ -1,10 +1,9 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.AuthController;
+import com.cohort10.controllers.AuthBeanI;
 import com.cohort10.controllers.TestAlternativeI;
 import com.cohort10.model.User;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
@@ -23,7 +22,7 @@ import java.util.Date;
 public class LoginAction extends HttpServlet {
 
     @EJB
-    AuthController authController;
+    AuthBeanI authBean;
 
     @Inject
     TestAlternativeI testAlternative;
@@ -56,7 +55,7 @@ public class LoginAction extends HttpServlet {
             return;
         }
 
-        User user = authController.login(username, password);
+        User user = authBean.login(username, password);
         if (user == null || user.getId() == null) {
             servletCtx.setAttribute("loginError" , "Password is username & password combination<br/>");
             res.sendRedirect("./login.jsp");

@@ -2,8 +2,9 @@ package com.cohort10.controllers;
 
 import com.cohort10.model.User;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
@@ -13,7 +14,20 @@ import java.sql.Statement;
 
 @Stateless
 @Remote
-public class AuthController {
+public class AuthBean implements AuthBeanI {
+
+
+
+
+    @PostConstruct
+    public void init(){
+        System.out.println("Bean has bean created we can ..do stuff..");
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Bean is about to be destroyed....release resource.. close connection");
+    }
 
     @Resource(lookup = "java:jboss/datasources/School")
     DataSource dataSource;

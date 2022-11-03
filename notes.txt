@@ -517,3 +517,22 @@ CarI car; // this inject Mercedes
 
 
 
+@EJB
+PatientBean patientBean;
+
+
+@Path("/patient")
+public class PatientApi {
+
+    @EJB
+    PatientBean patientBean;
+
+    @Path("/list")
+    public Response list() {
+
+        return Response.status(200).entity(patientBean.list()).build();
+
+    }
+
+
+}
