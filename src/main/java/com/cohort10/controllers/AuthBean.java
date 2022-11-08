@@ -3,10 +3,7 @@ package com.cohort10.controllers;
 import com.cohort10.model.Auth;
 import com.cohort10.model.User;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

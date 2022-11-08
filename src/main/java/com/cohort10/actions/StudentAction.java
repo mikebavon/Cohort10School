@@ -6,7 +6,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -43,7 +42,7 @@ public class StudentAction extends HttpServlet {
             System.out.println(ex.getMessage());
         }
 
-        if (StringUtils.isBlank(student.getName())) {
+        if (StringUtils.isBlank(student.getPerson().getName())) {
             servletCtx.setAttribute("addStudentError" , "Name is required<br/>");
             res.sendRedirect("./student_add.jsp");
             return;
@@ -55,7 +54,14 @@ public class StudentAction extends HttpServlet {
             return;
         }
 
-        studentBean.add(student);
+        try {
+            studentBean.add(student);
+        } catch (Exception ex) {
+
+            servletCtx.setAttribute("addStudentError" , ex.getMessage() + "<br/>");
+            res.sendRedirect("./student_add.jsp");
+            return;
+        }
 
         res.sendRedirect("./home.jsp");
 

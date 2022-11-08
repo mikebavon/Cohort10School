@@ -10,8 +10,8 @@ import java.util.Date;
 @Table(name = "students")
 public class Student extends BaseEntity {
 
-    @Column
-    private String name;
+    @Embedded
+    private Person person;
 
     @Column(name = "reg_no")
     private String regNo;
@@ -25,19 +25,19 @@ public class Student extends BaseEntity {
 
     public Student(){}
 
-    public Student(String name, String regNo, Date dateOfBirth, Gender gender){
-        this.name = name;
+    public Student(Person person, String regNo, Date dateOfBirth, Gender gender){
+        this.person = person;
         this.regNo = regNo;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
     }
 
-    public String getName() {
-        return name;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getRegNo() {

@@ -4,18 +4,19 @@ import com.cohort10.model.Auth;
 import com.cohort10.model.Status;
 import com.cohort10.model.User;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
 @Remote
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserBean implements UserBeanI{
 
     @PersistenceContext
     EntityManager em;
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public User register(User user) throws Exception{
         if (user == null)
             throw new Exception("Invalid details");

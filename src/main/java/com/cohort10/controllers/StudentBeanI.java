@@ -4,5 +4,5 @@ import com.cohort10.model.Student;
 
 public interface StudentBeanI {
 
-    void add(Student student);
+    void add(Student student) throws Exception;
 }
