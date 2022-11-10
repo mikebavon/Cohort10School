@@ -1,7 +1,6 @@
 package com.cohort10.restapi;
 
-import com.cohort10.controllers.AuthBean;
-import com.cohort10.controllers.AuthBeanI;
+import com.cohort10.bean.AuthBeanI;
 import com.cohort10.model.User;
 
 import javax.ejb.EJB;

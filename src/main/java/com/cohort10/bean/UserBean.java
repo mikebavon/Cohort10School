@@ -1,4 +1,4 @@
-package com.cohort10.controllers;
+package com.cohort10.bean;
 
 import com.cohort10.model.Auth;
 import com.cohort10.model.Status;
@@ -37,7 +37,22 @@ public class UserBean implements UserBeanI{
 
         user.addAuth(auth);
 
+        //if id present the record will be updated........
+        // user.getId() != null merge will update record rather than insert....
+
         return em.merge(user);
+
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void update(User userUpdate){
+
+        User user = em.find(User.class, userUpdate.getId());
+
+        user.setEmail(userUpdate.getEmail());
+        user.setProfile(userUpdate.getProfile());
+
+        em.merge(user);
 
     }
 }

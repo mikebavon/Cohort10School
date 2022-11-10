@@ -1,4 +1,4 @@
-package com.cohort10.controllers;
+package com.cohort10.bean;
 
 import com.cohort10.model.Auth;
 import com.cohort10.model.User;

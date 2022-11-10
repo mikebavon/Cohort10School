@@ -1,12 +1,10 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.UserBeanI;
-import com.cohort10.model.Student;
+import com.cohort10.bean.UserBeanI;
 import com.cohort10.model.User;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Statement;
 
 @WebServlet("/register")
 public class RegisterAction extends HttpServlet {

@@ -547,3 +547,12 @@ ORM - object relation mapping ---- map an object to a table in a database;
             jpa implementor (Hibernate, EclipseLink) deals with
 
 to use jpa with the implementation --- jpa configuration..file which is an .xml called persistence.xml
+
+==========JPA HOME WORK===========
+- Implement JOIN (ALL JOIN TYPES) IN YOUR APPLICATION
+
+WRITE JPQL(HQL) TO IMPLEMENT :
+
+ -INNER JOIN
+ -LEFT JOIN
+ -CROSS JOIN

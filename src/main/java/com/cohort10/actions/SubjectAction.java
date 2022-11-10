@@ -1,8 +1,7 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.SubjectBeanI;
+import com.cohort10.bean.SubjectBeanI;
 import com.cohort10.model.Subject;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/subject")
-public class SubjectAction extends HttpServlet {
+public class SubjectAction extends BaseAction {
 
     @EJB
     SubjectBeanI subjectBean;
@@ -36,7 +35,7 @@ public class SubjectAction extends HttpServlet {
         Subject subject = new Subject();
 
         try {
-            BeanUtils.populate(subject, req.getParameterMap());
+            formPopulator().populate(subject, req.getParameterMap());
 
         } catch (Exception ex){
             System.out.println(ex.getMessage());

@@ -1,8 +1,13 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.StudentBeanI;
+import com.cohort10.bean.StudentBeanI;
+import com.cohort10.model.Person;
 import com.cohort10.model.Student;
+import com.cohort10.util.MyDateConverter;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.EJB;
@@ -16,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/student")
-public class StudentAction extends HttpServlet {
+public class StudentAction extends BaseAction {
 
     @EJB
     StudentBeanI studentBean;
@@ -34,9 +39,10 @@ public class StudentAction extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         Student student = new Student();
+        student.setPerson(new Person());
 
         try {
-            BeanUtils.populate(student, req.getParameterMap());
+            formPopulator().populate(student, req.getParameterMap());
 
         } catch (Exception ex){
             System.out.println(ex.getMessage());

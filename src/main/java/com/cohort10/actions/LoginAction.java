@@ -1,6 +1,6 @@
 package com.cohort10.actions;
 
-import com.cohort10.controllers.AuthBeanI;
+import com.cohort10.bean.AuthBeanI;
 import com.cohort10.model.Auth;
 import com.cohort10.model.User;
 import org.apache.commons.beanutils.BeanUtils;

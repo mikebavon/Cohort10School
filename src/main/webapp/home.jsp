@@ -21,15 +21,21 @@
     <th>Student Reg Number</th>
     <th>Gender</th>
     <th>Date Of Birth</th>
+    <th>Male</th>
+    <th>Female</th>
+    <th>N/A</th>
     <th></th>
 </tr>
 
-<jc:forEach items="${highSchool.list}" var="student">
+<jc:forEach items="${StudentView.list}" var="student">
     <tr>
-        <td>${student.name}</td>
+        <td>${student.person.name}</td>
         <td>${student.regNo}</td>
-        <td>${student.gender}</td>
-        <td>${student.dateOfBirth}</td>
+        <td>${student.person.gender}</td>
+        <td>${student.person.dateOfBirth}</td>
+        <td>${student.countMale}</td>
+        <td>${student.countFemale}</td>
+        <td>${student.countNa}</td>
         <td><a href="./edit?id=1">Edit</a>  | <a href="./delete">Delete</a></td>
     </tr>
 </jc:forEach>
@@ -45,7 +51,7 @@
     <th>Notes</th>
     <th></th>
 </tr>
-<jc:forEach items="${subjectController.list}" var="subject">
+<jc:forEach items="${SubjectView.list}" var="subject">
     <tr>
         <td>${subject.name}</td>
         <td>${subject.code}</td>

@@ -1,4 +1,4 @@
-package com.cohort10.controllers;
+package com.cohort10.bean;
 
 import com.cohort10.model.Subject;
 import org.apache.commons.lang3.StringUtils;
@@ -32,9 +32,8 @@ public class SubjectBean implements SubjectBeanI {
 
     }
 
-    public List<Subject> getList() {
+    public List<Subject> list() {
         return em.createQuery("FROM Subject s", Subject.class).getResultList();
-
     }
 
 }

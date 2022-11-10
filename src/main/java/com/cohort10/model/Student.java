@@ -1,9 +1,8 @@
 package com.cohort10.model;
 
-import com.cohort10.common.Gender;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.util.Date;
 
 
 @Entity
@@ -16,20 +15,27 @@ public class Student extends BaseEntity {
     @Column(name = "reg_no")
     private String regNo;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Formula("(select count(s.id) from students s where s.gender='MALE')")
+    private int countMale;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Formula("(select count(s.id) from students s where s.gender='FEMALE')")
+    private int countFemale;
+
+    @Formula("(select count(s.id) from students s where s.gender='NA')")
+    private int countNa;
 
     public Student(){}
 
-    public Student(Person person, String regNo, Date dateOfBirth, Gender gender){
+    public Student(Person person){
         this.person = person;
+    }
+
+    public Student(Long id, String regNo, int countMale, int  countFemale, int countNa){
+        setId(id);
         this.regNo = regNo;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
+        this.countMale = countMale;
+        this.countFemale = countFemale;
+        this.countNa = countNa;
     }
 
     public Person getPerson() {
@@ -48,19 +54,27 @@ public class Student extends BaseEntity {
         this.regNo = regNo;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public int getCountMale() {
+        return countMale;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setCountMale(int countMale) {
+        this.countMale = countMale;
     }
 
-    public Gender getGender() {
-        return gender;
+    public int getCountFemale() {
+        return countFemale;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setCountFemale(int countFemale) {
+        this.countFemale = countFemale;
+    }
+
+    public int getCountNa() {
+        return countNa;
+    }
+
+    public void setCountNa(int countNa) {
+        this.countNa = countNa;
     }
 }
