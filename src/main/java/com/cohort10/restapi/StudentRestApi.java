@@ -32,11 +32,11 @@ public class StudentRestApi extends BaseRestApi {
 
     }
 
-    @Path("/list/{id}/{systech}")
+    @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@PathParam("id") Long id,
-                         @PathParam("systech")  String nameOfCompany) {
+    public Response list(@QueryParam("id") Long id,
+             @QueryParam("systech")  String nameOfCompany) {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>The id is " + id);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>> company name " + nameOfCompany);
         return Response.status(Response.Status.OK).entity(studentBean.list()).build();
