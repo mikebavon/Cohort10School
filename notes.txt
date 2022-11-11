@@ -569,3 +569,8 @@ EXAMPLE OF WEBSERVICES:
     SOAP
 
 RESTful API - API OVER HTTP  - Representational state transfer (REST)
+
+ANNOTATION FOR REST TO REMEMBER
+
+    @PATH - Uri, path of the resource...add on a class the a method
+    @GET, @POST, @DELETE, @PUT ---- HTTP METHOD
