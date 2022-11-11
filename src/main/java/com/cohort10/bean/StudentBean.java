@@ -45,8 +45,15 @@ public class StudentBean implements StudentBeanI {
     }
 
     public List<Student> list() {
-        return em.createQuery("SELECT new Student(s.id,s.regNo,s.countMale,s.countFemale,s.countNa) FROM Student s",
-            Student.class).getResultList();
+        /*return em.createQuery("SELECT new Student(s.id,s.regNo,s.countMale,s.countFemale,s.countNa) FROM Student s",
+            Student.class).getResultList();*/
+
+        return  em.createNamedQuery(Student.FIND_ALL, Student.class).getResultList();
+
+        //return  em.createNamedQuery(Student.FIND_WITH_ID, Student.class)
+         //       .setParameter("studentId", 10L).getResultList();
+        //return  em.createNamedQuery(Student.FIND_WITH_REG_NO, Student.class)
+        //        .setParameter("studentRegNo", "s/13").getResultList();
     }
 
     //FROM Student s === SELECT s FROM Student s

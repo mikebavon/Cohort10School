@@ -556,3 +556,16 @@ WRITE JPQL(HQL) TO IMPLEMENT :
  -INNER JOIN
  -LEFT JOIN
  -CROSS JOIN
+ -GROUP BY
+ -ORDER BY
+ -LIMIT
+
+==== Named Queries ===
+
+==================== web services ======
+WEB SERVICE ALLOWS TO OR MORE APPLICATION TO COMMUNICATE WITH EACH OTHER
+EXAMPLE OF WEBSERVICES:
+    RESTful
+    SOAP
+
+RESTful API - API OVER HTTP  - Representational state transfer (REST)

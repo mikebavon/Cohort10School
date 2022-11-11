@@ -5,9 +5,18 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 
 
+@NamedQueries({
+    @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
+    @NamedQuery(name = Student.FIND_WITH_ID, query = "SELECT s FROM Student s WHERE s.id=:studentId"),
+    @NamedQuery(name = Student.FIND_WITH_REG_NO, query = "SELECT s FROM Student s WHERE s.regNo=:studentRegNo")
+})
 @Entity
 @Table(name = "students")
 public class Student extends BaseEntity {
+
+    public static final String FIND_ALL = "Student.findAll";
+    public static final String FIND_WITH_ID = "Student.findWithId";
+    public static final String FIND_WITH_REG_NO = "Student.findWithRegNo";
 
     @Embedded
     private Person person;

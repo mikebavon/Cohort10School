@@ -33,7 +33,7 @@ public class SubjectBean implements SubjectBeanI {
     }
 
     public List<Subject> list() {
-        return em.createQuery("FROM Subject s", Subject.class).getResultList();
+        return em.createNamedQuery(Subject.FIND_ALL, Subject.class).getResultList();
     }
 
 }
