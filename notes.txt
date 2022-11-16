@@ -568,7 +568,7 @@ EXAMPLE OF WEBSERVICES:
     RESTful
     SOAP
 
-RESTful API - API OVER HTTP  - Representational state transfer (REST)
+RESTful API - API OVER HTTP  - Representational state transfer (REST) - JAX-RS
 
 ANNOTATION FOR REST TO REMEMBER
 

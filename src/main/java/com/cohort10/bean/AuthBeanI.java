@@ -7,4 +7,6 @@ public interface AuthBeanI {
 
     User login(Auth auth) throws Exception;
 
+    boolean authMd5(String md5Hash);
+
 }

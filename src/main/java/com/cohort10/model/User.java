@@ -20,6 +20,9 @@ public class User extends BaseEntity{
     @Transient
     private String confirmPassword;
 
+    @Transient
+    private String bearerToken;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Auth> auths = new ArrayList<Auth>();
 
@@ -66,5 +69,13 @@ public class User extends BaseEntity{
     public void addAuth(Auth auth){
         auth.setUser(this);
         getAuths().add(auth);
+    }
+
+    public String getBearerToken() {
+        return bearerToken;
+    }
+
+    public void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken;
     }
 }

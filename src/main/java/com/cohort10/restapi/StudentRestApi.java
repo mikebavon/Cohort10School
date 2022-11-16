@@ -5,6 +5,9 @@ import com.cohort10.model.Student;
 import com.cohort10.rest.BaseRestApi;
 import com.cohort10.rest.ResponseWrapper;
 
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -32,6 +35,7 @@ public class StudentRestApi extends BaseRestApi {
 
     }
 
+    @RolesAllowed("LOGGED_IN")
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

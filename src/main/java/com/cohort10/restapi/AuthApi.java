@@ -1,27 +1,43 @@
 package com.cohort10.restapi;
 
 import com.cohort10.bean.AuthBeanI;
+import com.cohort10.model.Auth;
 import com.cohort10.model.User;
+import com.cohort10.rest.ResponseWrapper;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/api/auth")
+@Path("/auth")
 public class AuthApi {
 
     @EJB
     AuthBeanI authBean;
 
+    @PermitAll
     @POST
     @Path("/login")
-    public Response login(@PathParam("username") String username,@PathParam("password") String password) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(RestLoginWrapper loginWrapper) {
 
-        User user = new User(); //authBean.login(username, password);
+        Auth auth = new Auth();
+        auth.setUsername(loginWrapper.getUsername());
+        auth.setPassword(loginWrapper.getPassword());
+        try {
+            User user = authBean.login(auth);
+            return Response.status(Response.Status.OK)
+                .entity(new ResponseWrapper("authorized", user.getBearerToken())).build();
 
-        return Response.status(200).entity(user).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(new ResponseWrapper(false, ex.getMessage())).build();
+        }
+
+
 
     }
 }
