@@ -10,6 +10,7 @@
 8. Webservices - Restful(JAX-RS), then SOAP(JAX-WS)
 9. JMS - RabbitMq
 10. Java Security
+11. Design Pattern
 
 ======================== maven wildfly plugin ==================
 mvn clean compile package wildfly:deploy

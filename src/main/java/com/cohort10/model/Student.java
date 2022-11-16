@@ -3,8 +3,10 @@ package com.cohort10.model;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
+@XmlRootElement(name = "student")
 @NamedQueries({
     @NamedQuery(name = Student.FIND_ALL, query = "SELECT s FROM Student s"),
     @NamedQuery(name = Student.FIND_WITH_ID, query = "SELECT s FROM Student s WHERE s.id=:studentId"),
