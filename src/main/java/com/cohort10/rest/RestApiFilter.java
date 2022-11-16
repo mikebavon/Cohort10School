@@ -1,9 +1,12 @@
 package com.cohort10.rest;
 
 import com.cohort10.bean.AuthBeanI;
+import com.cohort10.model.Auth;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -15,7 +18,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Provider
 public class RestApiFilter implements ContainerRequestFilter {
@@ -57,7 +63,23 @@ public class RestApiFilter implements ContainerRequestFilter {
         String authorizationHeader = authorization.get(0);
 
         if (authorizationHeader.contains("Basic")) {
-            System.out.println(" Will will do basic authentication");
+            String basicToken = authorizationHeader.replace("Basic", "").trim();
+            System.out.println(basicToken);
+
+            byte[] decoded = Base64.decodeBase64(basicToken);
+            String [] authDecoded = new String(decoded, "UTF-8").split(":");
+
+            Auth auth = new Auth();
+            auth.setUsername(authDecoded[0]);
+            auth.setPassword(authDecoded[1]);
+            try {
+                authBean.login(auth);
+            } catch (Exception ex2) {
+                requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
+                    .entity(new ResponseWrapper(false, ex2.getMessage()))
+                    .type(MediaType.APPLICATION_JSON).build());
+            }
+
         } else if (authorizationHeader.contains("Bearer")) {
             String bearerToken = authorizationHeader.replace("Bearer", "").trim();
             System.out.println(bearerToken);
@@ -66,8 +88,19 @@ public class RestApiFilter implements ContainerRequestFilter {
                 requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
                     .entity(new ResponseWrapper(false, "Invalid authorization"))
                     .type(MediaType.APPLICATION_JSON).build());
+            }
 
-                return;
+            if (method.isAnnotationPresent(RolesAllowed.class)) {
+                RolesAllowed roles = method.getAnnotation(RolesAllowed.class);
+                Set<String> rolesSet = new HashSet<String>(Arrays.asList(roles.value()));
+
+                if (!rolesSet.contains("SIMON")) {
+                    requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
+                    .entity(new ResponseWrapper(false, "User profile not allowed"))
+                    .type(MediaType.APPLICATION_JSON).build());
+                }
+
+
             }
 
         } else  {

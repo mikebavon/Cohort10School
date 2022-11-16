@@ -35,7 +35,7 @@ public class StudentRestApi extends BaseRestApi {
 
     }
 
-    @RolesAllowed("LOGGED_IN")
+    @RolesAllowed({"SIMON","MIKE"})
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
