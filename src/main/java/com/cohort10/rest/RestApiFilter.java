@@ -4,6 +4,7 @@ import com.cohort10.bean.AuthBeanI;
 import com.cohort10.model.Auth;
 import org.apache.commons.codec.binary.Base64;
 
+import javax.annotation.Priority;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @Provider
+@Priority(1)
 public class RestApiFilter implements ContainerRequestFilter {
 
     @Context
@@ -35,8 +37,6 @@ public class RestApiFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
         Method method = resourceInfo.getResourceMethod();
-
-        System.out.println(">>>>>>>>>>>>>>>>>>>>> " + method.getName());
 
         if (method.isAnnotationPresent(PermitAll.class))
             return;
@@ -59,12 +59,10 @@ public class RestApiFilter implements ContainerRequestFilter {
             return;
         }
 
-        System.out.println("is this bearer of basic " + authorization.get(0));
         String authorizationHeader = authorization.get(0);
 
         if (authorizationHeader.contains("Basic")) {
             String basicToken = authorizationHeader.replace("Basic", "").trim();
-            System.out.println(basicToken);
 
             byte[] decoded = Base64.decodeBase64(basicToken);
             String [] authDecoded = new String(decoded, "UTF-8").split(":");
@@ -99,7 +97,6 @@ public class RestApiFilter implements ContainerRequestFilter {
                     .entity(new ResponseWrapper(false, "User profile not allowed"))
                     .type(MediaType.APPLICATION_JSON).build());
                 }
-
 
             }
 
